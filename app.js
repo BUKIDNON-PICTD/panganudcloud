@@ -9,8 +9,9 @@ io.on('connection', function (socket) {
     io.emit('onlineservers', serverid);
   });
   
-  socket.on('disconnect', function () {
-    console.log('the client has disconnected!');
+  socket.on('disconnect', function (serverid) {
+    console.log('serverid = ' + serverid + ' is DISCONNECTED')
+    io.emit('serveroffline', serverid);
   });
 
   socket.on('Message', function(data, fn) {
