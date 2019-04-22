@@ -4,15 +4,15 @@ var io = require('socket.io')(server);
 
 
 io.on('connection', function (socket) {
-  socket.on('serveronline',function(serverid){
+  socket.on('checkinserveronline',function(serverid){
   	console.log('serverid = ' + serverid + ' is CONNECTED')
-  	//socket.join(serverid);
+    io.emit('onlineservers', serverid);
   });
   
   socket.on('disconnect', function () {
     console.log('the client has disconnected!');
   });
-  
+
   socket.on('Message', function(data, fn) {
    // console.log('pass data to client');
     io.emit('Message', data);
