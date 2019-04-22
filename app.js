@@ -24,7 +24,7 @@ io.on('connection', function (socket) {
     socket.emit('login', {
       numServers: numServers
     });
-    socket.broadcast.emit('server online', {
+    socket.broadcast.emit('serveronline', {
       servername: socket.servername,
       numServers: numServers
     });
@@ -34,7 +34,7 @@ io.on('connection', function (socket) {
     if (addedServer) {
       --numServers;
       console.log(socket.servername + ' is OFFLINE');
-      socket.broadcast.emit('server offline', {
+      socket.broadcast.emit('serveroffline', {
         servername: socket.servername,
         numServers: numServers
       });
