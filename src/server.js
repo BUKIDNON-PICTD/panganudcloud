@@ -6,12 +6,13 @@ const passport	  = require('passport');
 const db          = require('./config/database');
 const port        = process.env.PORT || 9000; 
 const cors        = require('cors');
-const server = require('http').Server(express);
-const io = require('socket.io')(server);
+// const server = require('http').Server(express);
+
 
 const app = express();
+const io = require('socket.io')(app);
 app.use(cors());
- 
+
 
 
 // get our request parameters
