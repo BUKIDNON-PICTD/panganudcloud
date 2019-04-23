@@ -97,8 +97,8 @@ io.on('connection', function (socket) {
 });
 
 // Start the server
-app.listen(port);
-console.log('There will be dragons: http://localhost:' + port);
+// app.listen(port);
+// console.log('There will be dragons: http://localhost:' + port);
 
 server.listen(process.env.PORT || 9000, process.env.IP || "localhost", function(){
   var addr = server.address();
