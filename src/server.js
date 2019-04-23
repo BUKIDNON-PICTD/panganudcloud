@@ -6,11 +6,11 @@ const passport	  = require('passport');
 const db          = require('./config/database');
 const port        = process.env.PORT || 9000; 
 const cors        = require('cors');
-// const server = require('http').Server(express);
-
+const server = require('http').Server(express);
+const io = require('socket.io')(server);
 
 const app = express();
-const io = require('socket.io')(app);
+
 app.use(cors());
 
 
@@ -99,9 +99,9 @@ io.on('connection', function (socket) {
 
 // Start the server
 app.listen(port);
-console.log('Running Panganud Server at http://localhost:' + port);
 
-// app.listen(process.env.PORT || 9000, process.env.IP || "0.0.0.0", function(){
-//   var addr = server.address();
-//   console.log("Running Panganud Server at ", addr.address + ":" + addr.port);
-// });
+
+server.listen(process.env.PORT || 9000, process.env.IP || "0.0.0.0", function(){
+  var addr = server.address();
+  console.log("Running Panganud Server at ", addr.address + ":" + addr.port);
+});
