@@ -1,6 +1,12 @@
-var app = require('express')();
-var server = require('http').Server(app);
-var io = require('socket.io')(server);
+const app = require("./src/server");
+// const app = require('express')();
+// const server = require('http').Server(app);
+// const io = require('socket.io')(server);
+const http = require('http');
+const socketIO = require('socket.io')
+const server = http.createServer(app);
+const io = socketIO(server);
+io.origins("*:*");
 
 var numServers = 0
 io.on('connection', function (socket) {
