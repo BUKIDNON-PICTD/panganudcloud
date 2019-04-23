@@ -1,13 +1,13 @@
-var User = require('../models/user');
+// var User = require('../models/user');
 var User2 = require('../models/user2');
 var jwt = require('jsonwebtoken');
 var config = require('../config/config');
-var db = require('../config/database');
-var bcrypt = require('bcrypt');
+// var db = require('../config/database');
+// var bcrypt = require('bcrypt');
 
 function createToken(user) {
     return jwt.sign({ id: user.id, email: user.email }, config.jwtSecret, {
-        expiresIn: 200 // 86400 expires in 24 hours
+        expiresIn: 86400 // 86400 expires in 24 hours
       });
 }
 
@@ -16,7 +16,7 @@ exports.registerUser = (req, res) => {
         return res.status(400).json({ 'msg': 'You need to send email and password' });
     }
 
-    //mysql sequalizer
+    //mysql
     User2.findOne({
         where:{
             email:req.body.email
@@ -61,7 +61,7 @@ exports.loginUser = (req, res) => {
     if (!req.body.email || !req.body.password) {
         return res.status(400).send({ 'msg': 'You need to send email and password' });
     }
-    
+    //mysql
     User2.findOne({
         where:{
             email:req.body.email
@@ -77,7 +77,7 @@ exports.loginUser = (req, res) => {
     }).catch(err => {
         return res.status(400).json({ 'msg': 'The user does not exist' });
     });
-
+    //mongo
     // User.findOne({ email: req.body.email }, (err, user) => {
     //     if (err) {
     //         return res.status(400).send({ 'msg': err });

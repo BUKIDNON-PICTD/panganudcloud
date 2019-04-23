@@ -2,7 +2,7 @@ const express     = require('express');
 const bodyParser  = require('body-parser');
 const passport	  = require('passport');
 const mongoose    = require('mongoose');
-const config      = require('./config/config');
+// const config      = require('./config/config');
 const db          = require('./config/database');
 const port        = process.env.PORT || 9000; 
 const cors        = require('cors');
@@ -31,18 +31,18 @@ app.get('/', function(req, res) {
 const routes = require('./routes');
 app.use('/api', routes);
  
-mongoose.connect(config.db, { useNewUrlParser: true , useCreateIndex: true});
+// mongoose.connect(config.db, { useNewUrlParser: true , useCreateIndex: true});
  
-const connection = mongoose.connection;
+// const connection = mongoose.connection;
  
-connection.once('open', () => {
-    console.log('MongoDB database connection established successfully!');
-});
+// connection.once('open', () => {
+//     console.log('MongoDB database connection established successfully!');
+// });
  
-connection.on('error', (err) => {
-    console.log("MongoDB connection error. Please make sure MongoDB is running. " + err);
-    process.exit();
-});
+// connection.on('error', (err) => {
+//     console.log("MongoDB connection error. Please make sure MongoDB is running. " + err);
+//     process.exit();
+// });
 
 db.authenticate()
   .then(() => {

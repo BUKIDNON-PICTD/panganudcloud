@@ -27,7 +27,8 @@ const User2 = db.define('users', {
 });
 
 User2.prototype.validPassword = async function(password) {
-    return  await bcrypt.compare(password, this.password);
+    
+    return await bcrypt.compare(password, this.password);
 }
 
 module.exports = User2;
