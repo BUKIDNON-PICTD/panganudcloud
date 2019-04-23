@@ -1,7 +1,7 @@
 const express     = require('express');
 const bodyParser  = require('body-parser');
 const passport	  = require('passport');
-const mongoose    = require('mongoose');
+// const mongoose    = require('mongoose');
 // const config      = require('./config/config');
 const db          = require('./config/database');
 const port        = process.env.PORT || 9000; 
@@ -97,7 +97,10 @@ io.on('connection', function (socket) {
 });
 
 // Start the server
-server.listen(process.env.PORT || 9000, process.env.IP || "0.0.0.0", function(){
+app.listen(port);
+console.log('There will be dragons: http://localhost:' + port);
+
+server.listen(process.env.PORT || 9000, process.env.IP || "localhost", function(){
   var addr = server.address();
   console.log("Running Panganud Server at ", addr.address + ":" + addr.port);
 });
