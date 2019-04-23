@@ -1,31 +1,34 @@
-var express     = require('express');
-var bodyParser  = require('body-parser');
-var passport	= require('passport');
-var mongoose    = require('mongoose');
-var config      = require('./config/config');
-var port        = process.env.PORT || 5000; 
-var cors        = require('cors');
-var server = require('http').Server(express);
-var io = require('socket.io')(server);
+const express     = require('express');
+const bodyParser  = require('body-parser');
+const passport	  = require('passport');
+const mongoose    = require('mongoose');
+const config      = require('./config/config');
+const db          = require('./config/database');
+const port        = process.env.PORT || 9000; 
+const cors        = require('cors');
+const server = require('http').Server(express);
+const io = require('socket.io')(server);
 
-var app = express();
+const app = express();
 app.use(cors());
  
+
+
 // get our request parameters
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
  
 // Use the passport package in our application
 app.use(passport.initialize());
-var passportMiddleware = require('./middleware/passport');
+const passportMiddleware = require('./middleware/passport');
 passport.use(passportMiddleware);
  
-// Demo Route (GET http://localhost:5000)
+// Demo Route (GET http://localhost:9000)
 app.get('/', function(req, res) {
   return res.send('Hello! The API is at http://localhost:' + port + '/api');
 });
  
-var routes = require('./routes');
+const routes = require('./routes');
 app.use('/api', routes);
  
 mongoose.connect(config.db, { useNewUrlParser: true , useCreateIndex: true});
@@ -41,6 +44,13 @@ connection.on('error', (err) => {
     process.exit();
 });
 
+db.authenticate()
+  .then(() => {
+    console.log('Connection has been established successfully.');
+  })
+  .catch(err => {
+    console.error('Unable to connect to the database:', err);
+  });
 
 //socket
 var numServers = 0
