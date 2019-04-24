@@ -1,12 +1,12 @@
 // var User = require('../models/user');
 var User2 = require('../models/user2');
 var jwt = require('jsonwebtoken');
-var config = require('../config/config');
+// var config = require('../config/config');
 // var db = require('../config/database');
 // var bcrypt = require('bcrypt');
 
 function createToken(user) {
-    return jwt.sign({ id: user.id, email: user.email }, config.jwtSecret, {
+    return jwt.sign({ id: user.id, email: user.email }, global.gConfig.jwtSecret, {
         expiresIn: 86400 // 86400 expires in 24 hours
       });
 }
