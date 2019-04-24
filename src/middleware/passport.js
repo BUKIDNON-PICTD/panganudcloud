@@ -6,7 +6,7 @@ var config      = require('../config/config');
  
 var opts = {
     jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-    secretOrKey: config.jwtSecret
+    secretOrKey: global.gConfig.jwtSecret
 }
  
 module.exports = new JwtStrategy(opts, function (jwt_payload, done) {
