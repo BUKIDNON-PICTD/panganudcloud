@@ -1,6 +1,8 @@
 const Sequelize = require('sequelize');
-module.exports = new Sequelize('tagabukid_panganud', 'root', 'z7a18q', {
-    host: '172.16.2.49',
+
+
+module.exports = new Sequelize(global.gConfig.databasename, global.gConfig.databaseuser, global.gConfig.databasepass, {
+    host: global.gConfig.databasehost,
     dialect: 'mysql',
     pool: {
         max: 5,
