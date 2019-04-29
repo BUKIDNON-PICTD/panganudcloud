@@ -20,12 +20,7 @@ io.on('connection', function (socket) {
       });
     });
 
-    app.post('/serverrequest', passport.authenticate('jwt', { session: false }), (req, res) => {
-      console.log("REQUEST FROM: " + req.body.sender);
-      socket.emit('serverrequest'+ req.body.reciever, req.body, function (data) {
-        res.json(data).status(200);
-      });
-    });
+   
 
     // socket.on('serverrequest', function (params) {
     //   if(params.reciever in connectedServers){
@@ -47,7 +42,18 @@ io.on('connection', function (socket) {
         numServers: numServers
       });
     },10000);
-    
+
+    socket.emit('serverrequestbukidnon','test',function(data){
+      console.log(data);
+    });
+
+    app.post('/serverrequest', passport.authenticate('jwt', { session: false }), (req, res) => {
+      console.log("REQUEST FROM: " + req.body.sender + " to " + req.body.reciever);
+      socket.emit('serverrequest'+ req.body.reciever, req.body, function (data) {
+        res.json(data).status(200);
+      });
+    });
+
     socket.on('checkinserveronline',function(serverid){
       if (addedServer) return;
   
