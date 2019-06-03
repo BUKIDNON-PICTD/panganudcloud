@@ -43,9 +43,18 @@ io.on('connection', function (socket) {
       });
     },10000);
 
-    socket.emit('serverrequestbukidnon','test',function(data){
-      console.log(data);
-    });
+    // socket.emit('serverrequestbukidnon','test',function(data){
+    //   console.log(data);
+    // });
+    // socket.emit('serverrequestralph','test',function(data){
+    //   console.log(data);
+    // });
+    // socket.emit('serverrequestjade','test',function(data){
+    //   console.log(data);
+    // });
+    // socket.emit('serverrequestrufy','test',function(data){
+    //   console.log(data);
+    // });
 
     app.post('/serverrequest', passport.authenticate('jwt', { session: false }), (req, res) => {
       console.log("REQUEST FROM: " + req.body.sender + " to " + req.body.reciever);
