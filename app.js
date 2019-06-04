@@ -56,7 +56,8 @@ io.on('connection', function (socket) {
 
     app.post('/serverrequest', passport.authenticate('jwt', { session: false }), (req, res) => {
       console.log("REQUEST FROM: " + req.body.sender + " to " + req.body.reciever);
-      socket.emit('serverrequest'+req.body.reciever,'test',function(data){
+      const recieverSocket = connectedServers[req.body.reciever].id
+      socket.emit('serverrequest'+recieverSocket,'test',function(data){
           console.log(data);
       });
       // socket.emit('serverrequest'+ req.body.reciever, req.body, function (data) {
@@ -76,7 +77,8 @@ io.on('connection', function (socket) {
       socket.emit('login', {
         numServers: numServers
       });
-      socket.emit('serverrequest'+serverid,'test',function(data){
+      const recieverSocket = connectedServers[serverid].id
+      socket.emit('serverrequest'+recieverSocket,'test',function(data){
       	 console.log(data);
       });
       socket.broadcast.emit('serveronline', {
