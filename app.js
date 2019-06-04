@@ -78,6 +78,7 @@ io.on('connection', function (socket) {
         numServers: numServers
       });
       const recieverSocket = connectedServers[serverid].id
+      console.log(recieverSocket);
       socket.emit('serverrequest'+recieverSocket,recieverSocket,function(data){
       	 console.log(data);
       });
