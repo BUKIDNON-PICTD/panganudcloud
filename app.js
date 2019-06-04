@@ -41,9 +41,9 @@ io.on('connection', function (socket) {
       });
     },10000);
 
-    socket.emit('serverrequestbukidnon','test',function(data){
-      console.log(data);
-    });
+    // socket.emit('serverrequestbukidnon','test',function(data){
+    //   console.log(data);
+    // });
     // socket.emit('serverrequestralph','test',function(data){
     //   console.log(data);
     // });
@@ -56,11 +56,7 @@ io.on('connection', function (socket) {
 
     app.post('/serverrequest', passport.authenticate('jwt', { session: false }), (req, res) => {
       console.log("REQUEST FROM: " + req.body.sender + " to " + req.body.reciever);
-      // const recieverSocket = connectedServers[req.body.reciever].id
-      // socket.emit('serverrequest'+recieverSocket,'test',function(data){
-      //     console.log(data);
-      // });
-      socket.emit('serverrequest' + req.body.reciever, req.body, function (data) {
+      socket.emit('serverrequest', req.body, function (data) {
         res.json(data).status(200);
       });
     });
