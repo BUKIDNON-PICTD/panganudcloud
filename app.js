@@ -56,13 +56,13 @@ io.on('connection', function (socket) {
 
     app.post('/serverrequest', passport.authenticate('jwt', { session: false }), (req, res) => {
       console.log("REQUEST FROM: " + req.body.sender + " to " + req.body.reciever);
-      const recieverSocket = connectedServers[req.body.reciever].id
-      socket.emit('serverrequest'+recieverSocket,'test',function(data){
-          console.log(data);
-      });
-      // socket.emit('serverrequest'+ req.body.reciever, req.body, function (data) {
-      //   res.json(data).status(200);
+      // const recieverSocket = connectedServers[req.body.reciever].id
+      // socket.emit('serverrequest'+recieverSocket,'test',function(data){
+      //     console.log(data);
       // });
+      socket.emit('serverrequestbukidnon', req.body, function (data) {
+        res.json(data).status(200);
+      });
     });
 
     socket.on('checkinserveronline',function(serverid){
@@ -77,11 +77,11 @@ io.on('connection', function (socket) {
       socket.emit('login', {
         numServers: numServers
       });
-      const recieverSocket = connectedServers[serverid].id
-      console.log(recieverSocket);
-      socket.emit('serverrequest'+recieverSocket,recieverSocket,function(data){
-      	 console.log(data);
-      });
+      // const recieverSocket = connectedServers[serverid].id
+      // console.log(recieverSocket);
+      // socket.emit('serverrequest'+recieverSocket,recieverSocket,function(data){
+      // 	 console.log(data);
+      // });
       socket.broadcast.emit('serveronline', {
         serverList: serverList,
         servername: socket.servername,
