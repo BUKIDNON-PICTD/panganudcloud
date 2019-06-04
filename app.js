@@ -55,7 +55,7 @@ io.on('connection', function (socket) {
     // });
 
     app.post('/serverrequest', passport.authenticate('jwt', { session: false }), (req, res) => {
-      console.log("REQUEST FROM: " + req.body.sender + " to " + req.body.reciever);
+      // console.log("REQUEST FROM: " + req.body.sender + " to " + req.body.reciever);
       socket.emit('serverrequest', req.body, function (data) {
         res.json(data).status(200);
       });
@@ -67,7 +67,7 @@ io.on('connection', function (socket) {
       socket.servername=serverid;
       ++numServers;
       addedServer = true;
-      connectedServers =  addServer(connectedServers,socket);
+      connectedServers = addServer(connectedServers,socket);
       serverList.push(serverid);
       console.log(socket.servername + ' is ONLINE');
       socket.emit('login', {
