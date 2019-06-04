@@ -41,9 +41,9 @@ io.on('connection', function (socket) {
       });
     },10000);
 
-    // socket.emit('serverrequestbukidnon','test',function(data){
-    //   console.log(data);
-    // });
+    socket.emit('serverrequestbukidnon','test',function(data){
+      console.log(data);
+    });
     // socket.emit('serverrequestralph','test',function(data){
     //   console.log(data);
     // });
@@ -60,7 +60,7 @@ io.on('connection', function (socket) {
       // socket.emit('serverrequest'+recieverSocket,'test',function(data){
       //     console.log(data);
       // });
-      socket.emit('serverrequestbukidnon', req.body, function (data) {
+      socket.emit('serverrequest' + req.body.reciever, req.body, function (data) {
         res.json(data).status(200);
       });
     });
