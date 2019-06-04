@@ -20,26 +20,6 @@ io.on('connection', function (socket) {
       });
     });
 
-    //socket.emit('serverrequestbukidnon','test',function(data){
-    //  console.log(data + " bukidnon");
-    //});
-    //socket.emit('serverrequestrufy','test',function(data){
-    //  console.log(data + " rufy");
-    //});
-    //socket.emit('serverrequestjade','test',function(data){
-    //  console.log(data);
-    //});
-    //socket.emit('serverrequestrufy','test',function(data){
-    //  console.log(data);
-    //});
-
-    app.post('/serverrequest', passport.authenticate('jwt', { session: false }), (req, res) => {
-      console.log("REQUEST FROM: " + req.body.sender + " to " + req.body.reciever);
-      socket.emit('serverrequest'+req.body.reciever, req.body, function (data) {
-        res.json(data).status(200);
-      });
-    });
-
     // socket.on('serverrequest', function (params) {
     //   if(params.reciever in connectedServers){
     //     const recieverSocket = connectedServers[params.reciever].id
@@ -60,7 +40,27 @@ io.on('connection', function (socket) {
         numServers: numServers
       });
     },10000);
-    
+
+    socket.emit('serverrequestbukidnon','test',function(data){
+      console.log(data);
+    });
+    socket.emit('serverrequestralph','test',function(data){
+      console.log(data);
+    });
+    socket.emit('serverrequestjade','test',function(data){
+      console.log(data);
+    });
+    socket.emit('serverrequestrufy','test',function(data){
+      console.log(data);
+    });
+
+    app.post('/serverrequest', passport.authenticate('jwt', { session: false }), (req, res) => {
+      console.log("REQUEST FROM: " + req.body.sender + " to " + req.body.reciever);
+      socket.emit('serverrequest'+ req.body.reciever, req.body, function (data) {
+        res.json(data).status(200);
+      });
+    });
+
     socket.on('checkinserveronline',function(serverid){
       if (addedServer) return;
   
