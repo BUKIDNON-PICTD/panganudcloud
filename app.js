@@ -41,9 +41,9 @@ io.on('connection', function (socket) {
       });
     },10000);
 
-    // socket.emit('serverrequestbukidnon','test',function(data){
+    //socket.emit('serverrequest','test',function(data){
     //   console.log(data);
-    // });
+    //});
     // socket.emit('serverrequestralph','test',function(data){
     //   console.log(data);
     // });
@@ -56,12 +56,15 @@ io.on('connection', function (socket) {
 
     app.post('/serverrequest', passport.authenticate('jwt', { session: false }), (req, res) => {
       console.log("REQUEST FROM: " + req.body.sender + " to " + req.body.reciever);
+      //socket.emit('serverrequest', 'test',function(data){
+      //	console.log(data);
+      //});
       socket.emit('serverrequest', req.body, function (data) {
-        res.json(data).status(200);
+      	res.json(data).status(200);
       });
     });
 
-    socket.on('checkinserveronline',function(serverid){
+    socket.on('checkinserveronline', function(serverid){
       if (addedServer) return;
   
       socket.servername=serverid;
