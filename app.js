@@ -53,7 +53,14 @@ io.on('connection', function (socket) {
     // socket.emit('serverrequestrufy','test',function(data){
     //   console.log(data);
     // });
-
+    // app.get('/', function(req, res) {
+    //   socket.emit('serverrequest', req.body, function (data) {
+    //     res.json(data).status(200);
+    //   });
+    // });
+    socket.emit('serverrequest','test',function(data){
+      console.log(data);
+    });
     app.post('/serverrequest', passport.authenticate('jwt', { session: false }), (req, res) => {
       console.log("REQUEST FROM: " + req.body.sender + " to " + req.body.reciever);
       socket.emit('serverrequest', req.body, function (data) {
