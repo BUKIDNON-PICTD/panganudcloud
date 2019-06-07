@@ -20,12 +20,12 @@ io.on('connection', function (socket) {
       });
     });
 
-    // socket.on('serverrequest', function (params) {
-    //   if(params.reciever in connectedServers){
-    //     const recieverSocket = connectedServers[params.reciever].id
-    //     socket.to(recieverSocket).emit('serverrequest',params.sender, params);
-    //   }
-    // });
+    socket.on('serverrequest', function (params) {
+      if(params.reciever in connectedServers){
+        const recieverSocket = connectedServers[params.reciever].id
+        socket.to(recieverSocket).emit('serverrequest', params);
+      }
+    });
   
     // socket.on('serverresponse', function (sender, data) {
     //   if(sender in connectedServers){
@@ -58,9 +58,9 @@ io.on('connection', function (socket) {
     //     res.json(data).status(200);
     //   });
     // });
-    socket.emit('serverrequest','test',function(data){
-      console.log(data);
-    });
+    // socket.emit('serverrequest','test',function(data){
+    //   console.log(data);
+    // });
     app.post('/serverrequest', passport.authenticate('jwt', { session: false }), (req, res) => {
       console.log("REQUEST FROM: " + req.body.sender + " to " + req.body.reciever);
       socket.emit('serverrequest', req.body, function (data) {
