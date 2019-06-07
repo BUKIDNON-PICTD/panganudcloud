@@ -21,19 +21,21 @@ io.on('connection', function (socket) {
       });
     });
 
-    // socket.on('serverrequest', function (params) {
-    //   if(params.reciever in connectedServers){
-    //     const recieverSocket = connectedServers[params.reciever].id
-    //     socket.to(recieverSocket).emit('serverrequest',params.sender, params);
-    //   }
-    // });
+    socket.on('serverrequest', function (params) {
+      if(params.reciever in connectedServers){
+	console.log("PROCESSING REQUEST FROM :" + params.sender);
+        const recieverSocket = connectedServers[params.reciever].id
+        socket.to(recieverSocket).emit('serverrequest', params);
+      }
+    });
   
-    // socket.on('serverresponse', function (sender, data) {
-    //   if(sender in connectedServers){
-    //     const senderSocket = connectedServers[sender].id
-    //     socket.to(senderSocket).emit('serverresponse', data);
-    //   }
-    // });
+    socket.on('serverresponse', function (data) {
+       if(data.sender in connectedServers){
+	 console.log("SENDING RESPONSE TO :" + data.reciever);
+         const senderSocket = connectedServers[data.reciever].id
+         socket.to(senderSocket).emit('serverresponse', data.result);
+       }
+     });
     
     setInterval(function(){
       io.emit('connectedservers', {
@@ -59,24 +61,20 @@ io.on('connection', function (socket) {
     //     res.json(data).status(200);
     //   });
     // });
-    //socket.emit('serverrequest','test',function(data){
-    //  console.log(data);
-    //});
-    //socket.on('serverresponse',function(data){
-    //	console.log(data.reciever + "-TEST");
-    //});
-    app.post('/serverrequest', passport.authenticate('jwt', { session: false }), (req, res) => {
-      console.log("REQUEST FROM: " + req.body.sender + " to " + req.body.reciever);
-      //socket.emit('serverrequest', req.body, function (data) {
-      //	res.json(data).status(200);
-      //});
-	socket.broadcast.emit('serverrequest', req.body);
-	io.on('serverresponse', resppHandler);
-
-  	function resppHandler(data) {
-		console.log(data);
-    		res.json(data).status(200);
-  	}
+    // socket.emit('serverrequest','test',function(data){
+    //   console.log(data);
+    // });
+    //app.post('/serverrequest', passport.authenticate('jwt', { session: false }), (req, res) => {
+    //  console.log("REQUEST FROM: " + req.body.sender + " to " + req.body.reciever);
+    //  //socket.emit('serverrequest', req.body, function (data) {
+    //  //	res.json(data).status(200);
+    //  //});
+    //	socket.broadcast.emit('serverrequest', req.body);
+    //	io.on('serverresponse', resppHandler);
+    //	function resppHandler(data) {
+    //		console.log(data);
+    //		res.json(data).status(200);
+    //	}
 	//socket.on('serverresponse', resphandler()function(data){
 	//	//console.log(data.reciever + "-TRU");
 	//	if(data.reciever === lguid){
@@ -90,7 +88,7 @@ io.on('connection', function (socket) {
 	//		res.json(data.result).status(200);
 	//	}
     	//});
-    });
+    //});
 
     socket.on('checkinserveronline', function(serverid){
       if (addedServer) return;
