@@ -2,6 +2,7 @@ const config = require('./src/config/config');
 const app = require("./src/server");
 const http = require('http');
 const server = http.createServer(app);
+const ioreq = require("socket.io-request");
 const io = require('socket.io')(server);
 // require('./src/socket')(io);
 io.origins("*:*");
@@ -58,14 +59,37 @@ io.on('connection', function (socket) {
     //     res.json(data).status(200);
     //   });
     // });
-    socket.emit('serverrequest','test',function(data){
-      console.log(data);
-    });
+    //socket.emit('serverrequest','test',function(data){
+    //  console.log(data);
+    //});
+    //socket.on('serverresponse',function(data){
+    //	console.log(data.reciever + "-TEST");
+    //});
     app.post('/serverrequest', passport.authenticate('jwt', { session: false }), (req, res) => {
       console.log("REQUEST FROM: " + req.body.sender + " to " + req.body.reciever);
-      socket.emit('serverrequest', req.body, function (data) {
-      	res.json(data).status(200);
-      });
+      //socket.emit('serverrequest', req.body, function (data) {
+      //	res.json(data).status(200);
+      //});
+	socket.broadcast.emit('serverrequest', req.body);
+	io.on('serverresponse', resppHandler);
+
+  	function resppHandler(data) {
+		console.log(data);
+    		res.json(data).status(200);
+  	}
+	//socket.on('serverresponse', resphandler()function(data){
+	//	//console.log(data.reciever + "-TRU");
+	//	if(data.reciever === lguid){
+	//		res.json(data.result).status(200);
+	//	}
+	//});
+	//ioreq(io).request("serverrequest",req.body)
+    	//	.then(function(data){
+      	//	//console.log(res); // get {height: 528, width: 924}
+	//	if(data.reciever === req.body.reciever){
+	//		res.json(data.result).status(200);
+	//	}
+    	//});
     });
 
     socket.on('checkinserveronline', function(serverid){
