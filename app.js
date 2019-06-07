@@ -23,7 +23,7 @@ io.on('connection', function (socket) {
 
     socket.on('serverrequest', function (params) {
       if(params.reciever in connectedServers){
-	console.log("PROCESSING REQUEST FROM :" + params.sender);
+	      console.log("PROCESSING REQUEST FROM :" + params.sender);
         const recieverSocket = connectedServers[params.reciever].id
         socket.to(recieverSocket).emit('serverrequest', params);
       }
@@ -31,9 +31,9 @@ io.on('connection', function (socket) {
   
     socket.on('serverresponse', function (data) {
        if(data.sender in connectedServers){
-	 console.log("SENDING RESPONSE TO :" + data.reciever);
-         const senderSocket = connectedServers[data.reciever].id
-         socket.to(senderSocket).emit('serverresponse', data.result);
+	        console.log("SENDING RESPONSE TO :" + data.reciever);
+          const senderSocket = connectedServers[data.reciever].id
+          socket.to(senderSocket).emit('serverresponse', data.result);
        }
      });
     
