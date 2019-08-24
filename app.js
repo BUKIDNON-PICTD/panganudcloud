@@ -5,6 +5,7 @@ const server = http.createServer(app);
 const ioreq = require("socket.io-request");
 const io = require('socket.io')(server);
 // require('./src/socket')(io);
+
 io.origins("*:*");
 var passport = require('passport');
 
@@ -13,7 +14,7 @@ let connectedServers = { };
 let serverList = [];        
 io.on('connection', function (socket) {
     var addedServer = false;
-   
+ 
     socket.on('message', (data) => {
       socket.broadcast.emit('message', {
         servername: socket.servername,
@@ -148,7 +149,7 @@ io.on('connection', function (socket) {
 
 server.listen(process.env.PORT || 9000, process.env.IP || "0.0.0.0", function(){
   var addr = server.address();
-  console.log("Running Panganud Server at ", addr.address + ":" + addr.port);
+  console.log("Panganud Server at ", addr.address + ":" + addr.port);
 });
 
 
