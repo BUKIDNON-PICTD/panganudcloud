@@ -9,8 +9,7 @@ const cors        = require('cors');
 const app = express();
 app.use(cors());
 
-const dirTree = require("directory-tree");
-const tree = dirTree("D:\spagenda");
+
 
 
 // get our request parameters
@@ -22,12 +21,12 @@ app.use(passport.initialize());
 const passportMiddleware = require('./middleware/passport');
 passport.use(passportMiddleware);
 
-app.set('view engine', 'ejs');
 
-// Demo Route (GET http://localhost:9000)
-app.get('/', function(req, res) {
-  return res.send('Welcome to Panganud Project');
-});
+
+// // Demo Route (GET http://localhost:9000)
+// app.get('/', function(req, res) {
+//   return res.send('Welcome to Panganud Project');
+// });
  
 const routes = require('./routes');
 app.use('/api', routes);
@@ -54,9 +53,7 @@ db.authenticate()
   });
 
 
-  app.get('/spagenda', (req, res) => {
-    res.render('/src/views/spagenda', tree);
-  });
+
 
 
 module.exports = app;

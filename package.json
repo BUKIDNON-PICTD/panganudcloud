@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "admin-lte": "^3.0.0-alpha",
     "bcrypt": "^3.0.6",
     "body-parser": "^1.18.3",
     "cors": "^2.8.5",
@@ -17,16 +18,19 @@
     "directory-tree": "^2.2.4",
     "ejs": "^2.6.2",
     "express": "^4.17.1",
+    "fs": "0.0.1-security",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.5.2",
     "mysql2": "^1.6.5",
     "npm": "^6.10.2",
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
+    "path": "^0.12.7",
     "request": "^2.83.0",
     "sequelize": "^5.11.0",
     "socket.io": "^2.0.3",
-    "socket.io-request": "^0.8.0"
+    "socket.io-request": "^0.8.0",
+    "underscore": "^1.9.1"
   },
   "devDependencies": {
     "nodemon": "^1.19.1"
