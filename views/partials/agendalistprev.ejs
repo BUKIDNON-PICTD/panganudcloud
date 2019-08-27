@@ -1,0 +1,10 @@
+<% agendalist.forEach(function(agenda) { %>
+    <% agenda.type %>
+    <% if (agenda.type == 'directory') { %> 
+        <% agenda.children.forEach(function(agendaitem) { %>
+            <% if (currentagenda == agenda.name) { %>
+                <li><a href="?agenda=<%= currentagenda %>&file=<%= agendaitem.name %>"><%= agendaitem.name %></a></li>
+            <% } %>    
+        <% }); %>
+    <% } %>
+<% }); %>
