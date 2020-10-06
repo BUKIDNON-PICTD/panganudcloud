@@ -1,11 +1,12 @@
 version: '2'
 services:
   panganudcloud:
+    container_name: panganudcloud
     build:
       context: .      
       dockerfile: Dockerfile
     restart: always
-    image: panganudcloud:1.001
+    image: panganudcloud:1.025
     ports:
       - 7500:9000
     command: npm run start

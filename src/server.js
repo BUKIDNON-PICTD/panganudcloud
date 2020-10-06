@@ -3,13 +3,10 @@ const bodyParser  = require('body-parser');
 const passport	  = require('passport');
 // const mongoose    = require('mongoose');
 // const config      = require('./config/config');
-const db          = require('./config/database');
-const port        = process.env.PORT || 9000; 
+const db          = require('./config/tagabukidpanganuddb');
 const cors        = require('cors');
 const app = express();
 app.use(cors());
-
-
 
 
 // get our request parameters
@@ -51,7 +48,6 @@ db.authenticate()
   .catch(err => {
     console.error('Unable to connect to the database at ' + global.gConfig.databasehost +":", err);
   });
-
 
 
 

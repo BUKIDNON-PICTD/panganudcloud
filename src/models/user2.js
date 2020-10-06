@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-const db = require('../config/database');
+const db = require('../config/tagabukidpanganuddb');
 const bcrypt = require('bcrypt');
 
 const User2 = db.define('users', {

@@ -138,7 +138,7 @@
           socket.on("update", function(data){
             //   console.log(data);
             // //   console.log(data);
-                let location = data.client.find(i => i.name === 'clientname').value;
+                let location = data.client.locationname;
                 let profile = data.profile;    
     
                 let timestamp = data.timestamp;
@@ -149,7 +149,7 @@
                 $("#clientlist").empty();
                 data.clientList.forEach(function (client) {
                     var h = '<li class="nav-item"><a href="#" class="nav-link" ><i class="fa fa-circle-o nav-icon"></i>' +   
-                            '<p>' + client.find(i => i.name === 'clientname').value + '</p></a></li>'
+                            '<p>' + client.locationname + '</p></a></li>'
                     $("#clientlist").append(h);
                 });
           });
