@@ -6,7 +6,7 @@ services:
       context: .      
       dockerfile: Dockerfile
     restart: always
-    image: panganudcloud:1.025
+    image: panganudcloud:1.036
     ports:
       - 7500:9000
     command: npm run start

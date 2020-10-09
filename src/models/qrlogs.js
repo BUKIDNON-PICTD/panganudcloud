@@ -24,6 +24,10 @@ const Qrlogs = db.define('bukidnoncovid19_qrlogs', {
         type: 'TIMESTAMP',
         allowNull: false
     },
+    personobjid: {
+        type: Sequelize.STRING,
+         allowNull: false
+    },
     lastname : {
         type: Sequelize.STRING,
         allowNull: false

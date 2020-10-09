@@ -1,4 +1,5 @@
 var qrlogs = require('../models/qrlogs');
+var qrlocations = require('../models/qrlocations');
 var jwt = require('jsonwebtoken');
 
 exports.getAll = async (req, res) => {
@@ -28,14 +29,27 @@ exports.getById = async (req, res) => {
     }
 };
 exports.create = async (req, res) => {
-    try {
-        const item = await qrlogs.create(req.body);
-        return res.status(201).json(item);
-    } catch (error) {
-        return res.status(500).json({
-            error: error.message
-        });
+    // console.log(req.body);
+    // const {
+    //     locationid
+    // } = req.body.locationid;
+    console.log(req.body.locationid);
+    const location = await qrlocations.findOne({
+        where: {
+            locationid: req.body.locationid
+        },
+    });
+    if (location){
+        try {
+            const item = await qrlogs.create(req.body);
+            return res.status(201).json(item);
+        } catch (error) {
+            return res.status(500).send()
+        }
+    } else {
+         return res.status(500).send("Location ID not found.")
     }
+
 };
 exports.update = async (req, res) => {
     try {

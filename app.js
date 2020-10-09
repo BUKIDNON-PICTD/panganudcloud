@@ -7,6 +7,7 @@ const config     = require("./src/config/config");
 const db   = require('./src/config/tagabukidpanganuddb');
 const cors = require('cors');
 const http = require("http");
+var qrlocations = require('./src/models/qrlocations');
 
 const app = express();
 app.use(cors());
@@ -71,17 +72,23 @@ io.on("connection", function (socket) {
     });
   });
  
-  socket.on("clientcheckin", function (clientinfo) {
+  socket.on("clientcheckin", async function (clientinfo) {
 
     if (clientinfo){
       if (addedClient) return;
       // console.log( clientinfo.find(i => i.name === 'clientid').value);
       socket = clientinfo[0];
+      const location = await qrlocations.findOne({
+          where: {
+              locationid: clientinfo[0].locationid
+          },
+      });
+      location.objid = clientinfo[0].objid;
       ++numClients;
       addedClient = true;
       connectedClients = addClient(connectedClients, socket);
-      clientList.push(socket);
-      console.log(clientinfo[0].locationname + " is ONLINE");
+      clientList.push(location);
+      console.log(location.locationname + " is ONLINE");
  
       io.emit("clientlistupdate", {
         clientList: clientList
@@ -89,13 +96,19 @@ io.on("connection", function (socket) {
   }
   });
 
-  socket.on("disconnect", () => {
+  socket.on("disconnect", async () => {
     console.log('a user disconnected');
     if (addedClient) {
       --numClients;
-      console.log(socket.locationname + " is OFFLINE");
-      connectedClients = removeClient(connectedClients, socket.objid);
-      clientList.splice(clientList.indexOf(socket), 1);
+      const location = await qrlocations.findOne({
+          where: {
+              locationid: socket.locationid
+          },
+      });
+      location.objid = socket.objid;
+      console.log(location.locationname + " is OFFLINE");
+      connectedClients = removeClient(connectedClients, location.objid);
+      clientList.splice(clientList.indexOf(location), 1);
       io.emit("clientlistupdate", {
         clientList: clientList
       });
@@ -106,13 +119,13 @@ io.on("connection", function (socket) {
 
 function addClient(clientList, socket) {
   let newList = Object.assign({}, clientList);
-  newList[socket.clientid] = socket;
+  newList[socket.objid] = socket;
   return newList;
 }
 
-function removeClient(clientList, clientid) {
+function removeClient(clientList, objid) {
   let newList = Object.assign({}, clientList);
-  delete newList[clientid];
+  delete newList[objid];
   return newList;
 }
 
