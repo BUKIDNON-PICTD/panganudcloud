@@ -103,3 +103,21 @@ exports.unsubscribe = async (req,res) => {
         return res.status(500).send(error.message);
         }
 };
+
+exports.checksubscriptionstatus = async (req,res) => {
+    try {
+        const push_access_token = req.body.push_access_token;
+        const subscriber = await covid19subscribers.findOne({
+            where: { push_access_token: push_access_token },
+        });
+        if (subscriber) {
+            if (subscriber.state == 'ACTIVE'){
+                return res.status(200).json({status:'ACTIVE'});
+            }
+            return res.status(200).json({status:'INACTIVE'});
+        }
+        throw new Error('Subscriber not found');
+    } catch (error) {
+        return res.status(500).send(error.message);
+    }
+};

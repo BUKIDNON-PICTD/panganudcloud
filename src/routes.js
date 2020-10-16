@@ -16,6 +16,7 @@ routes.post('/globe-notifyall',globelabsController.notifyAllSubscribers);
 routes.post('/qrlogs', qrlogscontroller.create);
 routes.post('/covid19subscriber/subscribe',covid19subscriberscontroller.subscribe);
 routes.post('/covid19subscriber/unsubscribe',covid19subscriberscontroller.unsubscribe);
+routes.post('/covid19subscriber/checksubscriptionstatus',covid19subscriberscontroller.checksubscriptionstatus);
 
 routes.get('/special', passport.authenticate('jwt', { session: false }), (req, res) => {
     return res.json({ msg: `Hey ${req.user.email}! I open at the close.` });
