@@ -9,6 +9,10 @@ const cors = require('cors');
 const http = require("http");
 var qrlocations = require('./src/models/qrlocations');
 
+const webpush = require('web-push');
+const PUBLIC_VAPID =  'BNOJyTgwrEwK9lbetRcougxkRgLpPs1DX0YCfA5ZzXu4z9p_Et5EnvMja7MGfCqyFCY4FnFnJVICM4bMUcnrxWg';
+const PRIVATE_VAPID = '_kRzHiscHBIGftfA7IehH9EA3RvBl8SBYhXBAMz6GrI';
+
 const app = express();
 app.use(cors());
 
@@ -37,6 +41,8 @@ db.authenticate()
   .catch(err => {
     console.error('Unable to connect to the database at ' + global.gConfig.databasehost +":", err);
   });
+
+webpush.setVapidDetails('mailto:aguilarufino@gmail.com', PUBLIC_VAPID, PRIVATE_VAPID)
 
 app.set("view engine", "ejs");
 app.use("/scripts", express.static(__dirname + "/node_modules/admin-lte/"));

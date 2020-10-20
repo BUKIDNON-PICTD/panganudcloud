@@ -1,5 +1,6 @@
 var covid19subscribers = require('../models/covid19subscribers');
 
+
 exports.getAll = async (req, res) => {
     try {
         const items = await covid19covid19subscribers.findAll();
@@ -89,7 +90,7 @@ exports.subscribe = async (req,res) => {
 exports.unsubscribe = async (req,res) => {
     console.log(req.body);
     try {
-        const push_access_token = req.body.unsubscribed["push_access_token"];
+        const push_access_token = req.body.push_access_token;
 
         const [ updated ] = await covid19subscribers.update({state:'INACTIVE'}, {
             where: { push_access_token: push_access_token }

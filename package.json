@@ -30,7 +30,8 @@
     "sequelize": "^5.22.3",
     "socket.io": "^2.0.3",
     "socket.io-request": "^0.8.0",
-    "underscore": "^1.9.1"
+    "underscore": "^1.9.1",
+    "web-push": "^3.4.4"
   },
   "devDependencies": {
     "nodemon": "^1.19.1"
