@@ -1,114 +1,85 @@
-module.exports = function (io){
-var numServers = 0
-let connectedServers = { }
-        
-io.on('connection', function (socket) {
-    var addedServer = false;
-    
-    socket.on('message', (data) => {
-      socket.broadcast.emit('message', {
-        servername: socket.servername,
-        message: data
-      });
-    });
-    app.post('/serverrequest', passport.authenticate('jwt', { session: false }), (req, res) => {
-      socket.emit('serverrequestbukidnon', 'test', function (data) {
-          // if(params.reciever in connectedServers){
-          //   const recieverSocket = connectedServers[params.reciever].id
-          //   socket.to(recieverSocket).emit('serverrequest',params.sender, params);
-          // }
-          res.sendStatus(data);
-      });
-    });
-    socket.on('serverrequest', function (params) {
-      if(params.reciever in connectedServers){
-        const recieverSocket = connectedServers[params.reciever].id
-        socket.to(recieverSocket).emit('serverrequest',params.sender, params);
-      }
-    });
-  
-    socket.on('serverresponse', function (sender, data) {
-      if(sender in connectedServers){
-        const senderSocket = connectedServers[sender].id
-        socket.to(senderSocket).emit('serverresponse', data);
-      }
-    });
-  
-    
-    socket.on('checkinserveronline',function(serverid){
-      if (addedServer) return;
-  
-      socket.servername=serverid;
-      ++numServers;
-      addedServer = true;
-      connectedServers =  addServer(connectedServers,socket);
-      console.log(socket.servername + ' is ONLINE');
-      socket.emit('login', {
-        numServers: numServers
-      });
-      socket.broadcast.emit('serveronline', {
-        servername: socket.servername,
-        numServers: numServers
-      });
-    });
-    
-    socket.on('disconnect', () => {
-      if (addedServer) {
-        --numServers;
-        console.log(socket.servername + ' is OFFLINE');
-        connectedServers = removeServer(connectedServers, socket.servername);
-        socket.broadcast.emit('serveroffline', {
-          servername: socket.servername,
-          numServers: numServers
+module.exports = function (io) {
+
+    io.origins("*:*");
+    var numClients = 0;
+    let connectedClients = {};
+    let clientList = [];
+
+    io.on("connection", function (socket) {
+        console.log('a user connected');
+        // var addedServer = false;
+        var addedClient = false;
+
+        setInterval(function () {
+            io.emit("clientlistupdate", {
+                clientList: clientList
+            });
+        }, 10000);
+
+        socket.on("message", data => {
+            console.log(data);
+
+            var d = new Date(data.timestamp);
+            io.emit("update", {
+                client: socket,
+                profile: data.profile,
+                timestamp: d.toDateString() + '-' + d.toLocaleTimeString()
+            });
         });
-      }
+
+        socket.on("clientcheckin", async function (clientinfo) {
+
+            if (clientinfo) {
+                if (addedClient) return;
+                // console.log( clientinfo.find(i => i.name === 'clientid').value);
+                socket = clientinfo[0];
+                const location = await qrlocations.findOne({
+                    where: {
+                        locationid: clientinfo[0].locationid
+                    },
+                });
+                location.objid = clientinfo[0].objid;
+                ++numClients;
+                addedClient = true;
+                connectedClients = addClient(connectedClients, socket);
+                clientList.push(location);
+                console.log(location.locationname + " is ONLINE");
+
+                io.emit("clientlistupdate", {
+                    clientList: clientList
+                });
+            }
+        });
+
+        socket.on("disconnect", async () => {
+            console.log('a user disconnected');
+            if (addedClient) {
+                --numClients;
+                const location = await qrlocations.findOne({
+                    where: {
+                        locationid: socket.locationid
+                    },
+                });
+                location.objid = socket.objid;
+                console.log(location.locationname + " is OFFLINE");
+                connectedClients = removeClient(connectedClients, location.objid);
+                clientList.splice(clientList.indexOf(location), 1);
+                io.emit("clientlistupdate", {
+                    clientList: clientList
+                });
+            }
+        });
     });
 
-    
-  
-  });
-  
-  
-  // app.get('/', function (req, res) {
-  //   res.sendFile(__dirname + '/index.html');
-  // });
-  
-  function addServer(serverList, socket){
-      let newList = Object.assign({}, serverList)
-      newList[socket.servername] = socket
-      return newList
-  }
-  
-  function removeServer(serverList, servername){
-      let newList = Object.assign({}, serverList)
-      delete newList[servername]
-      return newList
-  }
-};
+    function addClient(clientList, socket) {
+        let newList = Object.assign({}, clientList);
+        newList[socket.objid] = socket;
+        return newList;
+    }
 
-
-    // socket.on('serverrequest', function (reciever, sender, params,fn) {
-    //   console.log("SERVER");
-    //   if(reciever in connectedServers){
-    //     const recieverSocket = connectedServers[reciever].id
-    //     socket.to(recieverSocket).emit('questionbukidnon', params, function (answer) {
-    //       fn(answer);
-    //     }); 
-    //   }
-    // });
-    
-    // socket.on('serverrequest', function (reciever, sender, params) {
-    //   if(reciever in connectedServers){
-    //     const recieverSocket = connectedServers[reciever].id;
-    //     const newroom = recieverSocket+reciever+sender;
-    //     socket.join(newroom);
-    //     socket.to(newroom).emit('serverrequest',sender, params);
-    //   }
-    // });
-  
-    //  socket.on('serverresponse', function (sender, data) {
-    //   if(sender in connectedServers){
-    //     const senderSocket = connectedServers[sender].id
-    //     socket.to(senderSocket).emit('serverresponse', data);
-    //   }
-    // });
+    function removeClient(clientList, objid) {
+        let newList = Object.assign({}, clientList);
+        delete newList[objid];
+        return newList;
+    }
+}

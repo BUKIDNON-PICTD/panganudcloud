@@ -1,59 +1,54 @@
-const express     = require('express');
-const bodyParser  = require('body-parser');
-const passport	  = require('passport');
-// const mongoose    = require('mongoose');
-// const config      = require('./config/config');
-const db          = require('./config/tagabukidpanganuddb');
-const cors        = require('cors');
+const express = require('express');
+const bodyParser = require('body-parser');
+const passport = require('passport');
+const db = require('./config/tagabukidpanganuddb');
+const cors = require('cors');
+const routes = require('./routes');
+
+//initialize express
 const app = express();
+//enable cors
 app.use(cors());
 
-
 // get our request parameters
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({
+  extended: false
+}));
 app.use(bodyParser.json());
- 
+
 // Use the passport package in our application
 app.use(passport.initialize());
 const passportMiddleware = require('./middleware/passport');
 passport.use(passportMiddleware);
 
-
-
-// // Demo Route (GET http://localhost:9000)
-// app.get('/', function(req, res) {
-//   return res.send('Welcome to Panganud Project');
-// });
- 
-const routes = require('./routes');
+//api routes
 app.use('/api', routes);
 
-// mongoose.connect(config.db, { useNewUrlParser: true , useCreateIndex: true});
- 
-// const connection = mongoose.connection;
- 
-// connection.once('open', () => {
-//     console.log('MongoDB database connection established successfully!');
-// });
- 
-// connection.on('error', (err) => {
-//     console.log("MongoDB connection error. Please make sure MongoDB is running. " + err);
-//     process.exit();
+
+// app.get("/covidsubay", function (req, res) {
+//   res.render("covid/index");
 // });
 
+// app.get("/covidadvisories", function (req, res) {
+//   res.render("covid/advisories");
+// });
+
+app.post('/messagepy', (req, res) => {
+  io.emit("messagepy", req.body.message);
+  return res.json({
+    msg: `Message Sent!`
+  });
+});
+
+
+
+//test connect to database
 db.authenticate()
   .then(() => {
     console.log('Connection has been established successfully to DB SERVER at ' + global.gConfig.databasehost);
   })
   .catch(err => {
-    console.error('Unable to connect to the database at ' + global.gConfig.databasehost +":", err);
+    console.error('Unable to connect to the database at ' + global.gConfig.databasehost + ":", err);
   });
 
-
-
-
 module.exports = app;
-// Start the server
-// app.listen(port);
-// console.log('Running Panganud Server at http://localhost:' + port);
-

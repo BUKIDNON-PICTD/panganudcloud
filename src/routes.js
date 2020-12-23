@@ -5,6 +5,7 @@ var globelabsController  = require('./controller/globe-controller');
 var qrlogscontroller  = require('./controller/qrlogscontroller');
 var covid19subscriberscontroller  = require('./controller/covid19subscriberscontroller');
 var passport	    = require('passport');
+const webpush = require('web-push');
 
 routes.post('/register', userController.registerUser);
 routes.post('/login', userController.loginUser);
@@ -18,12 +19,13 @@ routes.post('/covid19subscriber/subscribe',covid19subscriberscontroller.subscrib
 routes.post('/covid19subscriber/unsubscribe',covid19subscriberscontroller.unsubscribe);
 routes.post('/covid19subscriber/checksubscriptionstatus',covid19subscriberscontroller.checksubscriptionstatus);
 const fakeDatabase = []
+
 routes.post('/covid19subscriber/subscribe2',(req,res)=>{
     const subscription = req.body
     fakeDatabase.push(subscription)
 });
 
-app.post('/covid19subscriber/sendNotification', (req, res) => {
+routes.post('/covid19subscriber/sendNotification', (req, res) => {
     const notificationPayload = {
       notification: {
         title: 'New Notification',
