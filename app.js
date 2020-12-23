@@ -5,7 +5,9 @@ const server = http.createServer(app);
 const io = require("socket.io")(server);
 
 const dirTree = require("directory-tree");
+
 var SMB2 = require('smb2');
+var schedule = require('node-schedule');
 
 require('./src/socket')(io);
 require('./src/spagenda')(app);
@@ -22,6 +24,7 @@ var smb2Client = new SMB2({
   autoCloseTimeout: 0
 });
 
+var auditlogrunning = false;
 async function x() {
   // let root = dirTree('C:/Users/user/Desktop/LogFiles/LogFiles');
   // const newArray = root.children.slice(0, 25);
@@ -31,15 +34,18 @@ async function x() {
   // //   x();
   // // }
 
-  console.log('before promise call')
+  // console.log('before promise call')
   //3. Await for the first function to complete
   let result = await geoserverauditlogs.migrate()
   console.log('promise resolved: ' + result)
-  console.log('next step');
+  // console.log('next step');
 
   smb2Client.readdir('auditlogs', function (err, files) {
-    if (err) throw err;
+    if (err) {
+      auditlogrunning = false;
+    }
     if (files) {
+      auditlogrunning = true;
       x();
     }
   });
@@ -47,7 +53,14 @@ async function x() {
 
 }
 
-x();
+var rule = new schedule.RecurrenceRule();
+rule.hour = 17;
+rule.minute = 0;
+var j = schedule.scheduleJob(rule, function(){
+  if (!auditlogrunning){
+    x();
+  }
+});
 
 
 
