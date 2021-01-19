@@ -1,4 +1,6 @@
+var qrlocations = require('./models/qrlocations');
 module.exports = function (io) {
+   
 
     io.origins("*:*");
     var numClients = 0;
