@@ -1,7 +1,6 @@
 
 const Sequelize = require('sequelize');
 const db = require('../config/tagabukidgisdb.js');
-const bcrypt = require('bcrypt');
 const { truncate } = require('fs');
 
 const GeoserverAudit = db.define('geoserver_audits', {

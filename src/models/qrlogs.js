@@ -1,6 +1,5 @@
 const Sequelize = require('sequelize');
 const db = require('../config/tagabukidgisdb.js');
-const bcrypt = require('bcrypt');
 const { truncate } = require('fs');
 
 const Qrlogs = db.define('bukidnoncovid19_qrlogs', {
