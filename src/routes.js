@@ -4,6 +4,7 @@ var userController  = require('./controller/user-controller');
 var globelabsController  = require('./controller/globe-controller');
 var qrlogscontroller  = require('./controller/qrlogscontroller');
 var covid19subscriberscontroller  = require('./controller/covid19subscriberscontroller');
+var covid19surveycontroller  = require('./controller/covid19surveycontroller');
 var passport	    = require('passport');
 const webpush = require('web-push');
 
@@ -50,5 +51,14 @@ routes.post('/covid19subscriber/sendNotification', (req, res) => {
 routes.get('/special', passport.authenticate('jwt', { session: false }), (req, res) => {
     return res.json({ msg: `Hey ${req.user.email}! I open at the close.` });
 });
+
+
+
+routes.get('/covid19survey', covid19surveycontroller.getAll);
+routes.get('/covid19survey/:objid', covid19surveycontroller.getById);
+routes.post('/covid19survey', covid19surveycontroller.create);
+routes.put('/covid19survey/:objid', covid19surveycontroller.update);
+routes.delete('/covid19survey/:objid', covid19surveycontroller.delete);
+
 
 module.exports = routes;
