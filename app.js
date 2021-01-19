@@ -24,42 +24,17 @@ var smb2Client = new SMB2({
   autoCloseTimeout: 0
 });
 
-var auditlogrunning = false;
 async function x() {
-  // let root = dirTree('C:/Users/user/Desktop/LogFiles/LogFiles');
-  // const newArray = root.children.slice(0, 25);
-  // let result = await geoserverauditlogs.migrate(newArray);
-  // console.log(result);
-  // // if (naapa){
-  // //   x();
-  // // }
-
-  // console.log('before promise call')
-  //3. Await for the first function to complete
   let result = await geoserverauditlogs.migrate()
   console.log('promise resolved: ' + result)
-  // console.log('next step');
-
-  smb2Client.readdir('auditlogs', function (err, files) {
-    if (err) {
-      auditlogrunning = false;
-    }
-    if (files) {
-      auditlogrunning = true;
-      x();
-    }
-  });
-
-
-}
-
-var rule = new schedule.RecurrenceRule();
-rule.hour = 17;
-rule.minute = 0;
-var j = schedule.scheduleJob(rule, function(){
-  if (!auditlogrunning){
+  if (result == "COMPLETED"){
     x();
   }
+}
+
+var j = schedule.scheduleJob('*/5 * * * *', function (fireDate) {
+  console.log("RUN AT:" + fireDate)
+  x();
 });
 
 

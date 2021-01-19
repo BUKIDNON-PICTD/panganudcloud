@@ -6,8 +6,10 @@ const { truncate } = require('fs');
 
 const GeoserverAudit = db.define('geoserver_audits', {
         id:{
-            type:Sequelize.STRING,
-            primaryKey: truncate
+            type: Sequelize.UUID,
+            primaryKey: true,
+            allowNull: false,
+            defaultValue: Sequelize.UUIDV4
         },
         Service:{
             type:Sequelize.STRING,
