@@ -15,6 +15,10 @@ const Deposits = db.define('bukidnoncovid19_vac_survey', {
         type: Sequelize.STRING,
         allowNull: false
     },
+    brand: {
+        type: Sequelize.STRING,
+        allowNull: true
+    },
     reason: {
         type: Sequelize.STRING,
         allowNull: false
