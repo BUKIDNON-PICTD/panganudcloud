@@ -1,4 +1,4 @@
-var Item = require('../models/covid19survey');
+var Item = require('../models/vaccinesurvey');
 
 
 exports.getAll = async (req, res) => {
