@@ -5,6 +5,7 @@ var globelabsController  = require('./controller/globe-controller');
 var qrlogscontroller  = require('./controller/qrlogscontroller');
 var covid19subscriberscontroller  = require('./controller/covid19subscriberscontroller');
 var vaccinesurveycontroller  = require('./controller/vaccinesurveycontroller');
+var vaccinesurveydashboardcontroller  = require('./controller/vaccinesurveydashboardcontroller');
 var passport	    = require('passport');
 const webpush = require('web-push');
 
@@ -59,6 +60,8 @@ routes.get('/vaccinesurvey/:objid', vaccinesurveycontroller.getById);
 routes.post('/vaccinesurvey', vaccinesurveycontroller.create);
 routes.put('/vaccinesurvey/:objid', vaccinesurveycontroller.update);
 routes.delete('/vaccinesurvey/:objid', vaccinesurveycontroller.delete);
+
+routes.get('/vaccinesurveydashboard/gettotals', vaccinesurveydashboardcontroller.getTotals);
 
 
 module.exports = routes;

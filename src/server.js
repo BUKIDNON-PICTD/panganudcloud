@@ -9,7 +9,7 @@ const routes = require('./routes');
 const app = express();
 //enable cors
 app.use(cors());
-
+app.use(bodyParser.json({ limit: '50mb' }));
 // get our request parameters
 app.use(bodyParser.urlencoded({
   extended: false
