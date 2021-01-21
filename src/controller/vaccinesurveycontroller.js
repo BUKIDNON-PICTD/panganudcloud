@@ -29,8 +29,8 @@ exports.getById = async (req, res) => {
 };
 exports.create = async (req, res) => {
     try {
-        const item = await Item.create(req.body);
-        return res.status(201).json(item);
+        await Item.create(req.body);
+        return res.status(201).json(201);
     } catch (error) {
         return res.status(500).json({
             error: error.message
