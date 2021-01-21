@@ -7,6 +7,10 @@ const Deposits = db.define('bukidnoncovid19_vac_survey', {
         type: Sequelize.UUID,
         primaryKey: true
     },
+    profilephoto: {
+        type: Sequelize.BLOB,
+        allowNull: false
+    },
     lastname : {
         type: Sequelize.STRING,
         allowNull: false
