@@ -15,6 +15,14 @@ const VaccineSurveyDashboard = db.define('vw_bukidnoncovid19_vac_survey_totals',
         type: Sequelize.INTEGER,
         allowNull: false
     },
+    totalmale: {
+        type: Sequelize.INTEGER,
+        allowNull: false
+    },
+    totalfemale: {
+        type: Sequelize.INTEGER,
+        allowNull: false
+    },
     totalprofiles: {
         type: Sequelize.INTEGER,
         allowNull: false
@@ -28,6 +36,18 @@ const VaccineSurveyDashboard = db.define('vw_bukidnoncovid19_vac_survey_totals',
         allowNull: false
     },
     totalundecidedmale: {
+        type: Sequelize.INTEGER,
+        allowNull: false
+    },
+    totalyesfemale: {
+        type: Sequelize.INTEGER,
+        allowNull: false
+    },
+    totalnofemale: {
+        type: Sequelize.INTEGER,
+        allowNull: false
+    },
+    totalundecidedfemale: {
         type: Sequelize.INTEGER,
         allowNull: false
     },
