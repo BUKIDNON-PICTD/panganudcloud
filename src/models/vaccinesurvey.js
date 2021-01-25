@@ -9,7 +9,7 @@ const Deposits = db.define('bukidnoncovid19_vac_survey', {
     },
     profilephoto: {
         type: Sequelize.BLOB,
-        allowNull: false
+        allowNull: true
     },
     lastname : {
         type: Sequelize.STRING,
