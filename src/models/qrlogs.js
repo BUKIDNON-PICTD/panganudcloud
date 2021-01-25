@@ -82,6 +82,10 @@ const Qrlogs = db.define('bukidnoncovid19_qrlogs', {
     address_street : {
         type: Sequelize.STRING,
         allowNull: false
+    },
+    answer : {
+        type: Sequelize.STRING,
+        allowNull: false
     }
 });
 
