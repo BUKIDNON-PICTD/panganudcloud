@@ -53,7 +53,7 @@ exports.update = async (req, res) => {
                     objid: objid
                 }
             });
-            return res.status(200).json(updateditem);
+            return res.status(200).json(200);
         }
         throw new Error('Item not found');
     } catch (error) {
