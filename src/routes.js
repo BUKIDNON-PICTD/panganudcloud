@@ -62,6 +62,7 @@ routes.put('/vaccinesurvey/:objid', vaccinesurveycontroller.update);
 routes.delete('/vaccinesurvey/:objid', vaccinesurveycontroller.delete);
 
 routes.get('/vaccinesurveydashboard/gettotals', vaccinesurveydashboardcontroller.getTotals);
+routes.get('/vaccinesurveydashboard/gettotalsage', vaccinesurveydashboardcontroller.getAgeRange);
 
 
 module.exports = routes;

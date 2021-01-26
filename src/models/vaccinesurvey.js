@@ -73,7 +73,7 @@ const Deposits = db.define('bukidnoncovid19_vac_survey', {
     },
     reason: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: true
     }
 }, {
     hooks: {
