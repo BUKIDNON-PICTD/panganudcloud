@@ -3,59 +3,67 @@ const db = require('../config/tagabukidgisdb.js');
 
 
 const VaccineSurveyDashboard = db.define('vw_bukidnoncovid19_vac_survey_totals', {
-    totalyes: {
+    totalYes: {
         type: Sequelize.INTEGER,
         allowNull: false
     },
-    totalno: {
+    totalNo: {
         type: Sequelize.INTEGER,
         allowNull: false
     },
-    totalundecided: {
+    totalUndecided: {
         type: Sequelize.INTEGER,
         allowNull: false
     },
-    totalmale: {
+    totalRespondents: {
         type: Sequelize.INTEGER,
         allowNull: false
     },
-    totalfemale: {
+    totalMaleYes: {
         type: Sequelize.INTEGER,
         allowNull: false
     },
-    totalprofiles: {
+    totalMaleNo: {
         type: Sequelize.INTEGER,
         allowNull: false
     },
-    totalyesmale: {
+    totalMaleUndecided: {
         type: Sequelize.INTEGER,
         allowNull: false
     },
-    totalnomale: {
+    totalFemaleYes: {
         type: Sequelize.INTEGER,
         allowNull: false
     },
-    totalundecidedmale: {
+    totalFemaleNo: {
         type: Sequelize.INTEGER,
         allowNull: false
     },
-    totalyesfemale: {
+    totalFemaleUndecided: {
         type: Sequelize.INTEGER,
         allowNull: false
     },
-    totalnofemale: {
+    totalYoungAdult: {
         type: Sequelize.INTEGER,
         allowNull: false
     },
-    totalundecidedfemale: {
+    totalEarlyAdult: {
         type: Sequelize.INTEGER,
         allowNull: false
     },
-    totalage20to30: {
+    totalAdult: {
         type: Sequelize.INTEGER,
         allowNull: false
     },
-    totalage30to40: {
+    totalMiddleAdult: {
+        type: Sequelize.INTEGER,
+        allowNull: false
+    },
+    totalLateAdult: {
+        type: Sequelize.INTEGER,
+        allowNull: false
+    },
+    totalSenior: {
         type: Sequelize.INTEGER,
         allowNull: false
     }
