@@ -6,6 +6,11 @@ var qrlogscontroller  = require('./controller/qrlogscontroller');
 var covid19subscriberscontroller  = require('./controller/covid19subscriberscontroller');
 var vaccinesurveycontroller  = require('./controller/vaccinesurveycontroller');
 var vaccinesurveydashboardcontroller  = require('./controller/vaccinesurveydashboardcontroller');
+
+// HRMIS
+var hrmispdsdashboardcontroller  = require('./controller/hrmis/HRMISPDSDashboardcontroller');
+
+
 var passport	    = require('passport');
 const webpush = require('web-push');
 
@@ -63,6 +68,12 @@ routes.delete('/vaccinesurvey/:objid', vaccinesurveycontroller.delete);
 
 routes.get('/vaccinesurveydashboard/gettotals', vaccinesurveydashboardcontroller.getTotals);
 routes.get('/vaccinesurveydashboard/gettotalsage', vaccinesurveydashboardcontroller.getAgeRange);
+
+// HRMIS
+
+routes.get('/hrmispdsdashboard/gettotals', hrmispdsdashboardcontroller.getTotals);
+routes.get('/hrmispdsdashboard/getofficecasual', hrmispdsdashboardcontroller.getOfficeCasual);
+routes.get('/hrmispdsdashboard/getofficejo', hrmispdsdashboardcontroller.getOfficeJO);
 
 
 module.exports = routes;
