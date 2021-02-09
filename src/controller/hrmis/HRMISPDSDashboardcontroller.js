@@ -1,7 +1,6 @@
-// var Item = require('../models/vaccinesurvey_totals');
 var Item = require('../../models/hrmis/hrmis_pds_totals');
-var ItemOfficeJO = require('../../models/hrmis/hrmis_office_jo_totals');
-var ItemOfficeCasual = require('../../models/hrmis/hrmis_office_casual_totals');
+var ItemOfficeTotal = require('../../models/hrmis/hrmis_office_totals');
+var ItemPositionTotal = require('../../models/hrmis/hrmis_position_totals');
 
 
 exports.getTotals = async (req, res) => {
@@ -13,18 +12,18 @@ exports.getTotals = async (req, res) => {
     }
 };
 
-exports.getOfficeCasual = async (req, res) => {
+exports.getOfficeTotal = async (req, res) => {
     try {
-        const items = await ItemOfficeCasual.findAll();
+        const items = await ItemOfficeTotal.findAll();
         return res.status(200).json(items);
     } catch (error) {
         return res.status(500).send(error.message);
     }
 };
 
-exports.getOfficeJO = async (req, res) => {
+exports.getPositionTotal = async (req, res) => {
     try {
-        const items = await ItemOfficeJO.findAll();
+        const items = await ItemPositionTotal.findAll();
         return res.status(200).json(items);
     } catch (error) {
         return res.status(500).send(error.message);

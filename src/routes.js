@@ -72,8 +72,8 @@ routes.get('/vaccinesurveydashboard/gettotalsage', vaccinesurveydashboardcontrol
 // HRMIS
 
 routes.get('/hrmispdsdashboard/gettotals', hrmispdsdashboardcontroller.getTotals);
-routes.get('/hrmispdsdashboard/getofficecasual', hrmispdsdashboardcontroller.getOfficeCasual);
-routes.get('/hrmispdsdashboard/getofficejo', hrmispdsdashboardcontroller.getOfficeJO);
+routes.get('/hrmispdsdashboard/getofficetotal', hrmispdsdashboardcontroller.getOfficeTotal);
+routes.get('/hrmispdsdashboard/getpositiontotal', hrmispdsdashboardcontroller.getPositionTotal);
 
 
 module.exports = routes;
