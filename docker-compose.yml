@@ -9,5 +9,5 @@ services:
     image: panganudcloud:1.041
     ports:
       - 7500:9000
-    command: npm run start
+    # command: npm run start
 

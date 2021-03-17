@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const passport = require('passport');
 const db = require('./config/tagabukidpanganuddb');
 const cors = require('cors');
-const routes = require('./routes');
+const routes = require('./routes/routes');
 
 //initialize express
 const app = express();
