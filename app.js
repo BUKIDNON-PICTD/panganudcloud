@@ -13,7 +13,7 @@ require('./src/spagenda')(app);
 
 
 
-// var geoserverauditlogs = require('./src/geoserverauditlogs');
+var geoserverauditlogs = require('./src/geoserverauditlogs');
 
 // var smb2Client = new SMB2({
 //   share: '\\\\172.16.2.55\\geoserverdata',
@@ -24,18 +24,18 @@ require('./src/spagenda')(app);
 //   autoCloseTimeout: 0
 // });
 
-// async function x() {
-//   let result = await geoserverauditlogs.migrate()
-//   console.log('promise resolved: ' + result)
-//   if (result == "COMPLETED"){
-//     x();
-//   }
-// }
+async function x() {
+  let result = await geoserverauditlogs.migrate()
+  console.log('promise resolved: ' + result)
+  if (result == "COMPLETED"){
+    x();
+  }
+}
 
-// var j = schedule.scheduleJob('*/5 * * * *', function (fireDate) {
-//   console.log("RUN AT:" + fireDate)
-//   x();
-// });
+var j = schedule.scheduleJob('*/5 * * * *', function (fireDate) {
+  console.log("RUN AT:" + fireDate)
+  x();
+});
 
 // const fs = require('fs');
 // const pdf = require('pdf-parse');
