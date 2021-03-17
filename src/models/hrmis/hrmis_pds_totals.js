@@ -2,7 +2,7 @@ const Sequelize = require('sequelize');
 const db = require('../../config/tagabukidhrmisdb.js');
 
 
-const HRMISPDSDashboard = db.define('vw_hrmis_pds_totals', {
+const HRMISPDSDashboard = db.define('vw_hrmis_pds_totals',      {
     // Total Job Orders
     totalJO: {
         type: Sequelize.INTEGER,
@@ -54,11 +54,11 @@ const HRMISPDSDashboard = db.define('vw_hrmis_pds_totals', {
         type: Sequelize.INTEGER,
         allowNull: false
     }
-
-}, {
-    tableName: 'vw_hrmis_pds_totals',
-    timestamps: false,
-});
+    },
+    {
+        tableName: 'vw_hrmis_pds_totals',
+        timestamps: false,
+    });
 
 HRMISPDSDashboard.removeAttribute('id');
 

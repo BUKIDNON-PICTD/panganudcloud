@@ -2,41 +2,41 @@ const Sequelize = require('sequelize');
 const db = require('../../config/tagabukidhrmisdb.js');
 
 
-const HRMISPositionTotalDashboard = db.define('vw_hrmis_position_total', {
+const HRMISAgeGroupTotalDashboard = db.define('vw_hrmis_agegroup_total', {
     // Total Job Orders
-    position: {
+    agegroup: {
         type: Sequelize.STRING,
         allowNull: false
     },
-    male: {
+    totalJO: {
         type: Sequelize.INTEGER,
         allowNull: false
     },
-    female: {
+    totalCasual: {
         type: Sequelize.INTEGER,
         allowNull: false
     },
-    Casual: {
+    totalMale: {
         type: Sequelize.INTEGER,
         allowNull: false
     },
-    JO: {
+    totalFemale: {
         type: Sequelize.INTEGER,
         allowNull: false
     },
-    CasualMale: {
+    totalCasualMale: {
         type: Sequelize.INTEGER,
         allowNull: false
     },
-    JOMale: {
+    totalCasualFemale: {
         type: Sequelize.INTEGER,
         allowNull: false
     },
-    CasualFemale: {
+    totalJOMale: {
         type: Sequelize.INTEGER,
         allowNull: false
     },
-    JOFemale: {
+    totalJOFemale: {
         type: Sequelize.INTEGER,
         allowNull: false
     },
@@ -46,11 +46,11 @@ const HRMISPositionTotalDashboard = db.define('vw_hrmis_position_total', {
     },
 
 }, {
-    tableName: 'vw_hrmis_position_total',
+    tableName: 'vw_hrmis_agegroup_total',
     timestamps: false,
 });
 
-HRMISPositionTotalDashboard.removeAttribute('id');
+HRMISAgeGroupTotalDashboard.removeAttribute('id');
 
 
-module.exports = HRMISPositionTotalDashboard;
+module.exports = HRMISAgeGroupTotalDashboard;
