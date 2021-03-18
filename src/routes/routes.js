@@ -8,6 +8,7 @@ const webpush = require('web-push');
 
 require("./covid.routes")(routes);
 require("./hrmis.routes")(routes);
+require("./smsgateway.routes")(routes);
 
 routes.post('/register', userController.registerUser);
 routes.post('/login', userController.loginUser);

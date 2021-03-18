@@ -11,33 +11,25 @@ var schedule = require('node-schedule');
 require('./src/socket')(io);
 require('./src/spagenda')(app);
 
-// const {NodeSSH} = require('node-ssh')
- 
-// const ssh = new NodeSSH()
- 
-// ssh.connect({
-//   host: 'localhost',
-//   username: 'steel',
-//   privateKey: './.ssh/id_rsa'
-// }).then(function() {
-//   ssh.execCommand('/home/administrator/smsgateway/scripts/sendsms.sh -m="hellow jade" -n="+639355037174"').then(function(result) {
-//     console.log('STDOUT: ' + result.stdout)
-//     console.log('STDERR: ' + result.stderr)
-//   })
+// const { NodeSSH } = require("node-ssh");
+// const ssh = new NodeSSH();
+
+// ssh
+// .connect({
+//   host: global.gConfig.smsserver,
+//   username: "root",
+//   privateKey: "./.ssh/id_rsa",
+// })
+// .then(function () {
+//   ssh
+//     .execCommand(
+//       'echo Hello world > /home/administrator/smsgateway/scripts/sendmasssms.sh'
+//     )
+//     .then(function (result) {
+//       console.log('STDOUT: ' + result.stdout)
+//       console.log('STDERR: ' + result.stderr)
+//     });
 // });
-
-
-// const SerialPort = require('serialport');
-// const serialPort = new SerialPort('COM6');
-
-// serialPort.on('open', () => {
-//  serialPort.write('AT+CMGF=1\r\n'); // set SMS text mode
-//  serialPort.write('AT+CMGS="+639061637300"\r\n'); // send sms message
-//  serialPort.write('Hello JAO\r\n');
-//  serialPort.write('\x1A');
-//  serialPort.write('^z'); 
-// });
-
 
 var geoserverauditlogs = require('./src/geoserverauditlogs');
 
