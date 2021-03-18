@@ -11,6 +11,22 @@ var schedule = require('node-schedule');
 require('./src/socket')(io);
 require('./src/spagenda')(app);
 
+// const {NodeSSH} = require('node-ssh')
+ 
+// const ssh = new NodeSSH()
+ 
+// ssh.connect({
+//   host: 'localhost',
+//   username: 'steel',
+//   privateKey: './.ssh/id_rsa'
+// }).then(function() {
+//   ssh.execCommand('/home/administrator/smsgateway/scripts/sendsms.sh -m="hellow jade" -n="+639355037174"').then(function(result) {
+//     console.log('STDOUT: ' + result.stdout)
+//     console.log('STDERR: ' + result.stderr)
+//   })
+// });
+
+
 // const SerialPort = require('serialport');
 // const serialPort = new SerialPort('COM6');
 

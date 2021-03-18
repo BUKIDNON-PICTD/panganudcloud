@@ -9,7 +9,8 @@
         "globelabsappid" : "ngx7H7gMMeCp5ir66pcMnGC8kgraH6Lb",
         "globelabsappsecret" : "cf94f8c86d859387c29f6806dcff0c1af3418fc9f453dabc84f24bd944b63a1f",
         "globelabsshortcode" : "21580235",
-        "spagendastorage": "Y:/spagenda"
+        "spagendastorage": "Y:/spagenda",
+        "smsserver": "192.168.50.3"
     },
     "production": {
         "config_id": "production",
@@ -21,6 +22,7 @@
         "globelabsappid" : "ngx7H7gMMeCp5ir66pcMnGC8kgraH6Lb",
         "globelabsappsecret" : "cf94f8c86d859387c29f6806dcff0c1af3418fc9f453dabc84f24bd944b63a1f",
         "globelabsshortcode" : "21580235",
-        "spagendastorage": "/usr/src/app/mnt/spagenda"
+        "spagendastorage": "/usr/src/app/mnt/spagenda",
+        "smsserver": "192.168.50.3"
     }
 }
