@@ -11,6 +11,16 @@ var schedule = require('node-schedule');
 require('./src/socket')(io);
 require('./src/spagenda')(app);
 
+// const SerialPort = require('serialport');
+// const serialPort = new SerialPort('COM6');
+
+// serialPort.on('open', () => {
+//  serialPort.write('AT+CMGF=1\r\n'); // set SMS text mode
+//  serialPort.write('AT+CMGS="+639061637300"\r\n'); // send sms message
+//  serialPort.write('Hello JAO\r\n');
+//  serialPort.write('\x1A');
+//  serialPort.write('^z'); 
+// });
 
 
 var geoserverauditlogs = require('./src/geoserverauditlogs');
