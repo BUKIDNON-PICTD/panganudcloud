@@ -42,7 +42,7 @@ exports.notifySubscribers = async (req, res) => {
       },
     });
     const { title, eventid, message } = req.body;
-    let sms = '"' + title + " ID:" + eventid + " MSG: " + message + '"';
+    let sms = '"' + title + " MSG: " + message + '"';
     let ret1 = await initializesmsbatch();
     console.log(ret1);
 
