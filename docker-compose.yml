@@ -10,4 +10,3 @@ services:
     ports:
       - 7500:9000
     command: npm run start
-
