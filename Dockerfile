@@ -1,21 +1,19 @@
 #The instructions for the first stage
-FROM node:10-alpine as builder
+FROM node:12.18.3-alpine as builder
+
+WORKDIR /usr/src/app
 
 ARG NODE_ENV=production
 ENV NODE_ENV=${NODE_ENV}
 
-RUN apk --no-cache add python make g++
+# RUN apk --no-cache add python make g++
 
 COPY package*.json ./
 # RUN npm install -g nodemon
 RUN npm install
 
-# The instructions for second stage
-FROM node:10-alpine
-ARG NODE_ENV=production
-ENV NODE_ENV=${NODE_ENV}
-WORKDIR /usr/src/app
-COPY --from=builder node_modules node_modules
-
 COPY . .
+
+EXPOSE 3000
+
 CMD [ "npm","run", "start" ]
