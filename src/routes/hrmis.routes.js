@@ -1,6 +1,6 @@
 
 // HRMIS
-var hrmispdsdashboardcontroller  = require('./controller/hrmis/HRMISPDSDashboardcontroller');
+var hrmispdsdashboardcontroller  = require('../controller/hrmis/HRMISPDSDashboardcontroller');
 
 
 module.exports = (routes) => {
