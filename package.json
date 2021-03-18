@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "admin-lte": "^3.0.0-alpha",
+    "bcrypt": "^5.0.1",
     "body-parser": "^1.18.3",
     "cors": "^2.8.5",
     "debug": "^3.1.0",

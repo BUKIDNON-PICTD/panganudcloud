@@ -18,8 +18,13 @@ require('./src/spagenda')(app);
 // ssh.connect({
 //   host: 'localhost',
 //   username: 'steel',
-//   privateKey: '/home/steel/.ssh/id_rsa'
-// })
+//   privateKey: './.ssh/id_rsa'
+// }).then(function() {
+//   ssh.execCommand('/home/administrator/smsgateway/scripts/sendsms.sh -m="hellow jade" -n="+639355037174"').then(function(result) {
+//     console.log('STDOUT: ' + result.stdout)
+//     console.log('STDERR: ' + result.stderr)
+//   })
+// });
 
 
 // const SerialPort = require('serialport');
