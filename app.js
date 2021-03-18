@@ -11,6 +11,17 @@ var schedule = require('node-schedule');
 require('./src/socket')(io);
 require('./src/spagenda')(app);
 
+// const {NodeSSH} = require('node-ssh')
+ 
+// const ssh = new NodeSSH()
+ 
+// ssh.connect({
+//   host: 'localhost',
+//   username: 'steel',
+//   privateKey: '/home/steel/.ssh/id_rsa'
+// })
+
+
 // const SerialPort = require('serialport');
 // const serialPort = new SerialPort('COM6');
 
