@@ -6,6 +6,7 @@ var globelabsController  = require('../controller/globe-controller');
 var passport	    = require('passport');
 const webpush = require('web-push');
 
+require("./passo.routes")(routes);
 require("./pho.routes")(routes);
 require("./covid.routes")(routes);
 require("./hrmis.routes")(routes);
