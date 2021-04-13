@@ -1,4 +1,4 @@
-const { Sequelize, Op } = require('sequelize');
+const { Op } = require('sequelize');
 var passoController = require('../../models/passo/passo.province.rputotals');
 var passoBarangayController = require('../../models/passo/passo.barangay.rputotals');
 var passoLGUController = require('../../models/passo/passo.lgu.rputotals');
@@ -11,6 +11,21 @@ exports.getParcelInfo = async (req, res) => {
         const items = await parcelQueryController.findAll(req.params.pin ? {
             where: {
                 pin: req.params.pin
+            },
+        } : {});
+        return res.status(200).json(items);
+    } catch (error) {
+        return res.status(500).send(error.message);
+    }
+}
+
+exports.getParcelSubdivisionImprovements = async (req, res) => {
+    try {
+        const items = await parcelQueryController.findAll(req.params.pin ? {
+            where: {
+                pin: {
+                    [Op.startsWith]: req.params.pin
+                }
             },
         } : {});
         return res.status(200).json(items);
