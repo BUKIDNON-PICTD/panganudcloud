@@ -3,12 +3,29 @@ var passoController = require('../../models/passo/passo.province.rputotals');
 var passoBarangayController = require('../../models/passo/passo.barangay.rputotals');
 var passoLGUController = require('../../models/passo/passo.lgu.rputotals');
 var passoClassificationController = require('../../models/passo/passo.classification.rputotals');
-var parcelQueryController = require('../../models/passo/passo.parcel.query');
+var passoParcelQueryController = require('../../models/passo/passo.parcel.query');
+// var passoSectionController = require('../../models/passo/passo.section.rputotals');
 
+
+// exports.getSectionRPUTotals = async (req, res) => {
+//     try {
+//         console.log(req.params);
+//         const items = await passoSectionController.findAll({
+//             group: 'section',
+//             where: {
+//                 lguid: req.params.lguid,
+//                 barangayid: req.params.barangayid,
+//             },
+//         });
+//         return res.status(200).json(items);
+//     } catch (error) {
+//         return res.status(500).send(error.message);
+//     }
+// }
 
 exports.getParcelInfo = async (req, res) => {
     try {
-        const items = await parcelQueryController.findAll(req.params.pin ? {
+        const items = await passoParcelQueryController.findAll(req.params.pin ? {
             where: {
                 pin: req.params.pin
             },
@@ -21,7 +38,7 @@ exports.getParcelInfo = async (req, res) => {
 
 exports.getParcelSubdivisionImprovements = async (req, res) => {
     try {
-        const items = await parcelQueryController.findAll(req.params.pin ? {
+        const items = await passoParcelQueryController.findAll(req.params.pin ? {
             where: {
                 pin: {
                     [Op.startsWith]: req.params.pin

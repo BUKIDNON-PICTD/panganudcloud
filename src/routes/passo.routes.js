@@ -11,6 +11,7 @@ module.exports = (routes) => {
     routes.get('/passodashboard/barangays/:lguid/:objid', passoDashboardController.getSelectedBarangayTotals);
 
     routes.get('/passodashboard/classifications', passoDashboardController.getClassificationTotals);
+    // routes.get('/passodashboard/section/:lguid/:barangayid', passoDashboardController.getSectionRPUTotals);
 
     routes.get('/passodashboard/parcel/:pin', passoDashboardController.getParcelInfo);
     routes.get('/passodashboard/parcel/improvements/:pin', passoDashboardController.getParcelSubdivisionImprovements);
