@@ -1,24 +1,14 @@
 var fs = require("fs");
-const dirTree = require("directory-tree");
 const xml2js = require("xml2js");
 var auditlog = require("./models/geoserveraudit");
-var SMB2 = require("smb2");
-const { doesNotMatch } = require("assert");
-var smb2Client = new SMB2({
-  share: "\\\\172.16.2.55\\geoserverdata",
-  domain: "",
-  username: "admin",
-  password: "PGB*4dm1n!",
-  // debug: 0,
-  autoCloseTimeout: 0,
-});
 
 exports.migrate = async () => {
   const selectedfiles = await getlogfiles();
   return new Promise(async (resolve, reject) => {
     console.log("START");
+    console.log(selectedfiles);
     for (const logfile of selectedfiles) {
-      if (logfile != "xauditlogs") {
+      // if (logfile != "xauditlogs") {
         try {
           const data = await readlogfile(logfile);
           const auditlogs = await parsefile(data, logfile);
@@ -33,14 +23,15 @@ exports.migrate = async () => {
         } catch (error) {
           console.log(error);
         }
-      }
+      // }
     }
     resolve("COMPLETED");
   });
 };
+
 deletefiles = (logfile) => {
   return new Promise((resolve, reject) => {
-    smb2Client.unlink("auditlogs\\" + logfile, function (err) {
+    fs.unlink("./mnt/geoserver/auditlogs/"+ global.gConfig.geoserverauditlogfolder +"/" + logfile, function (err) {
       if (err) throw err;
       resolve("file has been deleted :" + logfile);
     });
@@ -97,9 +88,10 @@ parsefile = (data, logfile) => {
     });
   });
 };
+
 getlogfiles = (_) => {
   return new Promise((resolve, reject) => {
-    smb2Client.readdir("auditlogs", async function (err, files) {
+    fs.readdir("./mnt/geoserver/auditlogs/"+ global.gConfig.geoserverauditlogfolder, async function (err, files) {
       if (err) throw err;
       resolve(
         files.slice(0, 50).map((i) => {
@@ -109,6 +101,7 @@ getlogfiles = (_) => {
     });
   });
 };
+
 migratelogfile = (auditlogs, logfile) => {
   return new Promise((resolve, reject) => {
     auditlog
@@ -125,22 +118,22 @@ migratelogfile = (auditlogs, logfile) => {
 
 readlogfile = (logfile) => {
   return new Promise((resolve, reject) => {
-    smb2Client.readFile("auditlogs\\" + logfile, async function (err, data) {
+    fs.readFile("./mnt/geoserver/auditlogs/"+ global.gConfig.geoserverauditlogfolder + "/" + logfile, function (err, data) {
       if (err) resolve(err);
       resolve(data);
     });
   });
 };
 
-removefiles = (logfile) => {
-  return new Promise((resolve, reject) => {
-    smb2Client.rename(
-      "auditlogs\\" + logfile,
-      "auditlogs\\xauditlogs\\" + logfile,
-      function (err) {
-        if (err) throw err;
-        resolve("file has been renamed :" + logfile);
-      }
-    );
-  });
-};
+// removefiles = (logfile) => {
+//   return new Promise((resolve, reject) => {
+//     smb2Client.rename(
+//       "auditlogs\\" + logfile,
+//       "auditlogs\\xauditlogs\\" + logfile,
+//       function (err) {
+//         if (err) throw err;
+//         resolve("file has been renamed :" + logfile);
+//       }
+//     );
+//   });
+// };
