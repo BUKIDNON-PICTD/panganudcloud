@@ -1,4 +1,8 @@
 version: '2'
+
+volumes:
+    geoserver-auditlogs:
+
 services:
   panganudcloud:
     container_name: panganudcloud
@@ -7,6 +11,8 @@ services:
       dockerfile: Dockerfile
     restart: always
     image: panganudcloud:1.042
+    volumes:
+      - geoserver-auditlogs:/usr/src/app/mnt/geoserver/auditlogs
     ports:
       - 7500:9000
     command: npm run start

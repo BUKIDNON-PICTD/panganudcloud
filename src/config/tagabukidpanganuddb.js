@@ -1,8 +1,8 @@
 const Sequelize = require('sequelize');
 
 
-module.exports = new Sequelize(global.gConfig.databasename, global.gConfig.databaseuser, global.gConfig.databasepass, {
-    host: global.gConfig.databasehost,
+module.exports = new Sequelize("tagabukid_panganud", global.gConfig.pgbclouddb.databaseuser, global.gConfig.pgbclouddb.databasepass, {
+    host: global.gConfig.pgbclouddb.databasehost,
     dialect: 'mysql',
     pool: {
         max: 5,

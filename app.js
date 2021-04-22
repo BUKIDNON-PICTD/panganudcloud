@@ -50,6 +50,8 @@ async function x() {
   }
 }
 
+// x();
+
 var j = schedule.scheduleJob('*/5 * * * *', function (fireDate) {
   console.log("RUN AT:" + fireDate)
   x();
