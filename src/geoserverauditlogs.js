@@ -31,7 +31,7 @@ exports.migrate = async () => {
 
 deletefiles = (logfile) => {
   return new Promise((resolve, reject) => {
-    fs.unlink("./mnt/geoserver/auditlogs/"+ global.gConfig.geoserverauditlogfolder +"/" + logfile, function (err) {
+    fs.unlink("./mnt/geoserver/monitoring/"+ global.gConfig.geoserverauditlogfolder +"/" + logfile, function (err) {
       if (err) throw err;
       resolve("file has been deleted :" + logfile);
     });
@@ -91,7 +91,7 @@ parsefile = (data, logfile) => {
 
 getlogfiles = (_) => {
   return new Promise((resolve, reject) => {
-    fs.readdir("./mnt/geoserver/auditlogs/"+ global.gConfig.geoserverauditlogfolder, async function (err, files) {
+    fs.readdir("./mnt/geoserver/monitoring/"+ global.gConfig.geoserverauditlogfolder, async function (err, files) {
       if (err) throw err;
       resolve(
         files.slice(0, 50).map((i) => {
@@ -118,7 +118,7 @@ migratelogfile = (auditlogs, logfile) => {
 
 readlogfile = (logfile) => {
   return new Promise((resolve, reject) => {
-    fs.readFile("./mnt/geoserver/auditlogs/"+ global.gConfig.geoserverauditlogfolder + "/" + logfile, function (err, data) {
+    fs.readFile("./mnt/geoserver/monitoring/"+ global.gConfig.geoserverauditlogfolder + "/" + logfile, function (err, data) {
       if (err) resolve(err);
       resolve(data);
     });
