@@ -19,12 +19,12 @@ async function x() {
   }
 }
 
-x();
+// x();
 
-// var j = schedule.scheduleJob('*/5 * * * *', function (fireDate) {
-//   console.log("RUN AT:" + fireDate)
-//   x();
-// });
+var j = schedule.scheduleJob('*/5 * * * *', function (fireDate) {
+  console.log("RUN AT:" + fireDate)
+  x();
+});
 
 
 server.listen(
