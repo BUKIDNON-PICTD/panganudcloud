@@ -123,16 +123,3 @@ readlogfile = (logfile) => {
     });
   });
 };
-
-// removefiles = (logfile) => {
-//   return new Promise((resolve, reject) => {
-//     smb2Client.rename(
-//       "auditlogs\\" + logfile,
-//       "auditlogs\\xauditlogs\\" + logfile,
-//       function (err) {
-//         if (err) throw err;
-//         resolve("file has been renamed :" + logfile);
-//       }
-//     );
-//   });
-// };
