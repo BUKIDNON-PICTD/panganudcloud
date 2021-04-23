@@ -6,7 +6,7 @@ exports.migrate = async () => {
   const selectedfiles = await getlogfiles();
   return new Promise(async (resolve, reject) => {
     console.log("START");
-    for (const logfile of selectedfiles.pop()) {
+    for (const logfile of selectedfiles) {
       // if (logfile != "xauditlogs") {
         try {
           const data = await readlogfile(logfile);
