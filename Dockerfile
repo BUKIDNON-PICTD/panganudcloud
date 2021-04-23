@@ -1,5 +1,5 @@
 #The instructions for the first stage
-FROM node:12.18.3-alpine as builder
+FROM node:lts-alpine as builder
 
 WORKDIR /usr/src/app
 

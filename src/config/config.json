@@ -1,0 +1,54 @@
+{
+    "development": {
+        "config_id": "development",
+        "jwtSecret": "long-live-the-ionic-academy",
+        "pgbclouddb": {
+            "databasehost" : "localhost",
+            "databasename" : "tagabukid_panganud",
+            "databaseuser" : "root",
+            "databasepass" : "z7a18q"
+        },
+        "pgbcloudgisdb": {
+            "databasehost" : "localhost",
+            "databasename" : "tagabukid_gis",
+            "databaseuser" : "root",
+            "databasepass" : "z7a18q"
+        },
+        "pgblocaldb": {
+            "databasehost" : "localhost",
+            "databasename" : "tagabukid_panganud",
+            "databaseuser" : "root",
+            "databasepass" : "z7a18q"
+        },
+        "spagendastorage": "/mnt/spagenda",
+        "geoserverauditlogstorage": "/mnt/geoserver/auditlogs",
+        "smsserver": "192.168.50.3",
+        "geoserverauditlogfolder": "monitor_23bd87cfa327d47e"
+    },
+    "production": {
+        "config_id": "production",
+        "jwtSecret": "long-live-the-ionic-academy",
+        "pgbclouddb": {
+            "databasehost" : "13.250.175.98",
+            "databasename" : "tagabukid_panganud",
+            "databaseuser" : "root",
+            "databasepass" : "PGB*4dm1n!"
+        },
+        "pgbcloudgisdb": {
+            "databasehost" : "database-2.cih5evig8cjq.ap-southeast-1.rds.amazonaws.com",
+            "databasename" : "tagabukid_gis",
+            "databaseuser" : "admin",
+            "databasepass" : "n58d6p4CcNw544Apq5fb"
+        },
+        "pgblocaldb": {
+            "databasehost" : "58.69.56.207",
+            "databasename" : "tagabukid_panganud",
+            "databaseuser" : "root",
+            "databasepass" : "z7a18q"
+        },
+        "spagendastorage": "/usr/src/app/mnt/spagenda",
+        "geoserverauditlogstorage": "/usr/src/app/mnt/geoserver/auditlogs",
+        "smsserver": "192.168.50.3",
+        "geoserverauditlogfolder": "monitor_23bd87cfa327d47e"
+    }
+}

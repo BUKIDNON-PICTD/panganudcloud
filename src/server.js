@@ -43,12 +43,12 @@ app.post('/messagepy', (req, res) => {
 
 
 //test connect to database
-db.authenticate()
-  .then(() => {
-    console.log('Connection has been established successfully to DB SERVER at ' + global.gConfig.databasehost);
-  })
-  .catch(err => {
-    console.error('Unable to connect to the database at ' + global.gConfig.databasehost + ":", err);
-  });
+// db.authenticate()
+//   .then(() => {
+//     console.log('Connection has been established successfully to DB SERVER at ' + global.gConfig.databasehost);
+//   })
+//   .catch(err => {
+//     console.error('Unable to connect to the database at ' + global.gConfig.databasehost + ":", err);
+//   });
 
 module.exports = app;

@@ -1,4 +1,5 @@
 version: '2'
+
 services:
   panganudcloud:
     container_name: panganudcloud
@@ -7,6 +8,12 @@ services:
       dockerfile: Dockerfile
     restart: always
     image: panganudcloud:1.042
+    volumes:
+      - bukidnongeoserver_geoserver-data:/usr/src/app/mnt/geoserver
     ports:
       - 7500:9000
     command: npm run start
+
+volumes:
+    bukidnongeoserver_geoserver-data:
+      external: true
