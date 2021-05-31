@@ -8,6 +8,8 @@ const webpush = require('web-push');
 
 var cache = require('express-redis-cache')();
 
+require("./passo.routes")(routes);
+require("./pho.routes")(routes);
 require("./covid.routes")(routes);
 require("./hrmis.routes")(routes);
 require("./smsgateway.routes")(routes);
