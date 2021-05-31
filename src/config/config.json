@@ -23,7 +23,8 @@
         "spagendastorage": "/mnt/spagenda",
         "geoserverauditlogstorage": "/mnt/geoserver/auditlogs",
         "smsserver": "192.168.50.3",
-        "geoserverauditlogfolder": "monitor_23bd87cfa327d47e"
+        "geoserverauditlogfolder": "monitor_23bd87cfa327d47e",
+        "redisuri":"localhost:6379"
     },
     "production": {
         "config_id": "production",
@@ -49,6 +50,7 @@
         "spagendastorage": "/usr/src/app/mnt/spagenda",
         "geoserverauditlogstorage": "/usr/src/app/mnt/geoserver/auditlogs",
         "smsserver": "192.168.50.3",
-        "geoserverauditlogfolder": "monitor_23bd87cfa327d47e"
+        "geoserverauditlogfolder": "monitor_23bd87cfa327d47e",
+        "redisuri":"localhost:6379"
     }
 }
