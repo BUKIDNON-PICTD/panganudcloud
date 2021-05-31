@@ -43,7 +43,6 @@ exports.bukidnoncovid19_view_summary = async (req, res) => {
 exports.bukidnoncovid19_view_municipality_dashboard = async (req, res) => {
   try {
     const { startdate, enddate, muncity } = req.query;
-    // console.log(req.query);
     const result = await db.query(
       `SELECT v.selected_date,
         SUM(IF(xx.date_confirmed IS NOT NULL AND xx.date_confirmed = v.selected_date,1,0)) AS confirmedcase_selecteddate,
@@ -158,7 +157,7 @@ exports.bukidnoncovid19_view_by_municipality_summary = async (req, res) => {
 exports.bukidnoncovid19_view_agegroup_summary = async (req, res) => {
 
   try {
-    const { muncity } = req.params;
+    const { muncity } = req.query;
     const result = await db.query(
       `SELECT xx.agerange,
         SUM(IF(xx.date_confirmed IS NOT NULL AND xx.date_cleared IS NULL, 1, 0)) AS totalactive,
@@ -247,3 +246,35 @@ exports.bukidnoncovid19_view_agegroup_summary = async (req, res) => {
     return res.status(500).send(error.message);
   }
 };
+
+exports.getadar = async (req, res) => {
+
+  try {
+    const result = await db.query(
+      `SELECT b.address_muncity as municipality,
+      COUNT(*) AS totalcasesforpast2weeks,
+      COUNT(*)/14 AS averageincidentcases,
+      ((COUNT(*)/14)/xx.population) * 100000 As attackrate,
+      CASE 
+      WHEN ((COUNT(*)/14)/xx.population) * 100000 < 1 THEN "LOW"
+      WHEN ((COUNT(*)/14)/xx.population) * 100000 > 7 THEN "HIGH"
+      ELSE "MEDIUM"
+      END AS adar
+      FROM bukidnoncovid19 b
+      INNER JOIN (SELECT municipality, barangay, SUM(population2021) as population
+      FROM population2021
+      GROUP BY municipality) xx on xx.municipality = b.address_muncity
+      WHERE b.address_muncity <> 'OUTSIDE BUKIDNON' AND (b.date_confirmed BETWEEN DATE(NOW() - INTERVAL 14 DAY) AND DATE(NOW()))
+      GROUP BY b.address_muncity`,
+      {
+        type: QueryTypes.SELECT,
+      }
+    );
+
+    // const items = await Item.findOne();
+    return res.status(200).json(result);
+  } catch (error) {
+    return res.status(500).send(error.message);
+  }
+};
+
