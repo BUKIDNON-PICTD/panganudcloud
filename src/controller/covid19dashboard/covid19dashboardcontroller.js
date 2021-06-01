@@ -154,6 +154,53 @@ exports.bukidnoncovid19_view_by_municipality_summary = async (req, res) => {
   }
 };
 
+exports.bukidnoncovid19_view_by_barangay_summary = async (req, res) => {
+  try {
+    const { muncity } = req.query;
+    const result = await db.query(
+      `SELECT UPPER(b.brgyname) as barangay,
+      SUM(IF(c.date_confirmed IS NOT NULL AND c.date_cleared IS NULL AND c.dtdied IS NULL, 1, 0)) AS totalactive,
+      SUM(IF(c.date_confirmed IS NOT NULL AND c.date_cleared IS NULL AND c.date_confirmed = DATE(NOW()) AND c.dtdied IS NULL, 1,0)) AS totalactivetoday,
+      SUM(IF(c.date_confirmed IS NOT NULL AND c.date_cleared IS NOT NULL, 1, 0)) AS totalrecovered,
+      SUM(IF(c.date_confirmed IS NOT NULL AND c.date_cleared = DATE(NOW()) ,1,0)) AS totalrecoveredtoday,
+      SUM(IF(c.date_confirmed IS NOT NULL AND c.dtdied IS NOT NULL, 1, 0)) AS totaldeceased,
+      SUM(IF(c.date_confirmed IS NOT NULL AND c.dtdied = DATE(NOW()),1,0)) AS totaldeceasedtoday,
+      SUM(IF(c.date_confirmed IS NOT NULL AND c.date_confirmed <> "", 1, 0)) AS totalconfirmed,
+      SUM(IF(c.date_confirmed IS NOT NULL AND c.date_confirmed <> "" AND parentid IS NULL, 1, 0)) AS totalconfirmednonlocaltrans,
+      SUM(IF(c.date_confirmed IS NOT NULL AND c.date_confirmed <> "" AND parentid IS NOT NULL, 1, 0)) AS totalconfirmedlocaltrans,
+      SUM(IF(c.date_probable IS NOT NULL AND c.date_confirmed IS NULL AND c.date_cleared IS NULL, 1, 0)) AS totalprobable,
+      SUM(IF(c.date_probable = DATE(NOW()) AND c.date_confirmed IS NULL AND c.date_cleared IS NULL, 1, 0)) AS totalprobabletoday,
+      SUM(IF(c.date_suspect IS NOT NULL AND c.date_probable IS NULL AND c.date_confirmed IS NULL AND c.date_cleared IS NULL, 1, 0)) AS totalsuspect,
+      SUM(IF(c.date_suspect = DATE(NOW()) AND c.date_probable  IS NULL AND c.date_confirmed IS NULL AND c.date_cleared IS NULL, 1, 0)) AS totalsuspecttoday,
+      SUM(IF(c.date_confirmed IS NULL AND c.date_cleared IS NOT NULL, 1, 0)) AS totalcompleted,
+      SUM(IF(c.date_confirmed IS NULL AND c.date_cleared = DATE(NOW()), 1, 0)) AS totalcompletedtoday,
+      SUM(IF((c.date_suspect IS NOT NULL OR c.date_probable IS NOT NULL) AND c.date_confirmed IS NULL AND c.date_cleared IS NULL AND dtqurantined IS NOT NULL, 1, 0)) AS totalquarantined,
+      SUM(IF(c.date_confirmed IS NOT NULL AND c.person_gender = 'M', 1, 0)) AS totalconfirmedmale,
+      SUM(IF(c.date_confirmed IS NOT NULL AND c.person_gender = 'F', 1, 0)) AS totalconfirmedfemale,
+      SUM(IF(c.date_confirmed IS NOT NULL AND YEAR(NOW()) - YEAR(c.person_birthdate) <= 20, 1,0)) AS totalconfirmed20below,
+      SUM(IF(c.date_confirmed IS NOT NULL AND YEAR(NOW()) - YEAR(c.person_birthdate) <= 20 AND c.person_gender = 'M', 1,0)) AS totalconfirmed20belowmale,
+      SUM(IF(c.date_confirmed IS NOT NULL AND YEAR(NOW()) - YEAR(c.person_birthdate) <= 20 AND c.person_gender = 'F', 1,0)) AS totalconfirmed20belowfemale,
+      SUM(IF(c.date_confirmed IS NOT NULL AND YEAR(NOW()) - YEAR(c.person_birthdate) >= 60, 1,0)) AS totalconfirmed60above,
+      SUM(IF(c.date_confirmed IS NOT NULL AND YEAR(NOW()) - YEAR(c.person_birthdate) >= 60 AND c.person_gender = 'M', 1,0)) AS totalconfirmed60abovemale,
+      SUM(IF(c.date_confirmed IS NOT NULL AND YEAR(NOW()) - YEAR(c.person_birthdate) >= 60 AND c.person_gender = 'F', 1,0)) AS totalconfirmed60abovefemale
+      FROM bukidnoncovid19 c
+      INNER JOIN boundary_municipality m ON m.mun_city = c.address_muncity
+      LEFT join boundary_barangay b on b.brgyname = c.address_barangay
+      WHERE c.address_muncity = :muncity
+      GROUP BY b.brgyname`,
+      
+      { 
+        replacements: { muncity:  muncity  },
+        type: QueryTypes.SELECT 
+      }
+    );
+    // const items = await Item.findOne();
+    return res.status(200).json(result);
+  } catch (error) {
+    return res.status(500).send(error.message);
+  }
+};
+
 exports.bukidnoncovid19_view_agegroup_summary = async (req, res) => {
 
   try {
