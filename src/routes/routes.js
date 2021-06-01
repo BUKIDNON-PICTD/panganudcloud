@@ -6,7 +6,7 @@ var globelabsController  = require('../controller/globe-controller');
 var passport	    = require('passport');
 const webpush = require('web-push');
 
-var cache = require('express-redis-cache')({host: "18.138.223.243", port: 6379});
+var cache = require('express-redis-cache')({host: global.gConfig.redisuri, port: 6379});
 
 require("./passo.routes")(routes);
 require("./pho.routes")(routes);

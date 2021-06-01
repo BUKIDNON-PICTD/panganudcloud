@@ -24,7 +24,7 @@
         "geoserverauditlogstorage": "/mnt/geoserver/auditlogs",
         "smsserver": "192.168.50.3",
         "geoserverauditlogfolder": "monitor_23bd87cfa327d47e",
-        "redisuri":"localhost:6379"
+        "redisuri":"localhost"
     },
     "production": {
         "config_id": "production",
@@ -51,6 +51,6 @@
         "geoserverauditlogstorage": "/usr/src/app/mnt/geoserver/auditlogs",
         "smsserver": "192.168.50.3",
         "geoserverauditlogfolder": "monitor_23bd87cfa327d47e",
-        "redisuri":"localhost:6379"
+        "redisuri":"18.138.223.243"
     }
 }

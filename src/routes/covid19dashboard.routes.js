@@ -26,4 +26,8 @@ module.exports = (routes, cache) => {
     "/getadar",
     covid19dashboardcontroller.getadar
   );
+  routes.get(
+    "/gettwoweekgrowthrate",
+    covid19dashboardcontroller.gettwoweekgrowthrate
+  );
 };
