@@ -44,7 +44,9 @@ exports.bukidnoncovid19_view_municipality_dashboard = async (req, res) => {
   try {
     const { startdate, enddate, muncity } = req.query;
     const result = await db.query(
-      `SELECT v.selected_date,
+      `SELECT * FROM vw_covid19_summary_20200401_20210101
+        UNION
+        SELECT v.selected_date,
         SUM(IF(xx.date_confirmed IS NOT NULL AND xx.date_confirmed = v.selected_date,1,0)) AS confirmedcase_selecteddate,
         SUM(IF(xx.date_confirmed IS NOT NULL AND xx.date_cleared IS NOT NULL AND xx.date_cleared = v.selected_date,1,0)) AS recoveredcase_selecteddate,
         SUM(IF(xx.date_confirmed IS NOT NULL AND xx.dtdied IS NOT NULL AND xx.dtdied = v.selected_date,1,0)) AS deceased_selecteddate,
@@ -56,14 +58,9 @@ exports.bukidnoncovid19_view_municipality_dashboard = async (req, res) => {
         SUM(IF(xx.date_confirmed IS NOT NULL AND xx.date_confirmed <= v.selected_date AND xx.parentid IS NOT NULL, 1, 0)) AS totalconfirmedlocaltrans
         
         FROM 
-        (SELECT ADDDATE('1970-01-01',t4.i*10000 + t3.i*1000 + t2.i*100 + t1.i*10 + t0.i) selected_date FROM
-         (SELECT 0 i UNION SELECT 1 UNION SELECT 2 UNION SELECT 3 UNION SELECT 4 UNION SELECT 5 UNION SELECT 6 UNION SELECT 7 UNION SELECT 8 UNION SELECT 9) t0,
-         (SELECT 0 i UNION SELECT 1 UNION SELECT 2 UNION SELECT 3 UNION SELECT 4 UNION SELECT 5 UNION SELECT 6 UNION SELECT 7 UNION SELECT 8 UNION SELECT 9) t1,
-         (SELECT 0 i UNION SELECT 1 UNION SELECT 2 UNION SELECT 3 UNION SELECT 4 UNION SELECT 5 UNION SELECT 6 UNION SELECT 7 UNION SELECT 8 UNION SELECT 9) t2,
-         (SELECT 0 i UNION SELECT 1 UNION SELECT 2 UNION SELECT 3 UNION SELECT 4 UNION SELECT 5 UNION SELECT 6 UNION SELECT 7 UNION SELECT 8 UNION SELECT 9) t3,
-         (SELECT 0 i UNION SELECT 1 UNION SELECT 2 UNION SELECT 3 UNION SELECT 4 UNION SELECT 5 UNION SELECT 6 UNION SELECT 7 UNION SELECT 8 UNION SELECT 9) t4) v,
+        calendar v,
         bukidnoncovid19 xx
-        WHERE v.selected_date BETWEEN :startdate AND :enddate
+        WHERE v.selected_date BETWEEN '2021-06-01' AND :enddate
         AND xx.address_muncity LIKE :muncity
         AND xx.address_muncity <> 'OUTSIDE BUKIDNON'
         GROUP BY v.selected_date`,
