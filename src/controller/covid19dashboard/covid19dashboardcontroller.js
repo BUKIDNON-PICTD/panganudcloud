@@ -40,7 +40,7 @@ exports.bukidnoncovid19_view_summary = async (req, res) => {
   }
 };
 
-exports.bukidnoncovid19_view_municipality_dashboard = async (req, res) => {
+exports.bukidnoncovid19_view_province_dashboard = async (req, res) => {
   try {
     const { startdate, enddate, muncity } = req.query;
     const result = await db.query(
@@ -61,6 +61,44 @@ exports.bukidnoncovid19_view_municipality_dashboard = async (req, res) => {
         calendar v,
         bukidnoncovid19 xx
         WHERE v.selected_date BETWEEN '2021-06-01' AND :enddate
+        AND xx.address_muncity LIKE :muncity
+        AND xx.address_muncity <> 'OUTSIDE BUKIDNON'
+        GROUP BY v.selected_date`,
+      {
+        replacements: {
+          startdate: startdate,
+          enddate: enddate,
+          muncity:  muncity ? "%" + muncity + "%" : "%"
+        },
+        type: QueryTypes.SELECT,
+      }
+    );
+    // const items = await Item.findOne();
+    return res.status(200).json(result);
+  } catch (error) {
+    return res.status(500).send(error.message);
+  }
+};
+
+exports.bukidnoncovid19_view_municipality_dashboard = async (req, res) => {
+  try {
+    const { startdate, enddate, muncity } = req.query;
+    const result = await db.query(
+      ` SELECT v.selected_date,
+        SUM(IF(xx.date_confirmed IS NOT NULL AND xx.date_confirmed = v.selected_date,1,0)) AS confirmedcase_selecteddate,
+        SUM(IF(xx.date_confirmed IS NOT NULL AND xx.date_cleared IS NOT NULL AND xx.date_cleared = v.selected_date,1,0)) AS recoveredcase_selecteddate,
+        SUM(IF(xx.date_confirmed IS NOT NULL AND xx.dtdied IS NOT NULL AND xx.dtdied = v.selected_date,1,0)) AS deceased_selecteddate,
+        SUM(IF(xx.date_confirmed IS NOT NULL AND xx.date_confirmed <= v.selected_date,1,0)) - SUM(IF(xx.date_confirmed IS NOT NULL AND xx.date_cleared IS NOT NULL AND xx.date_cleared <= v.selected_date,1,0)) - SUM(IF(xx.date_confirmed IS NOT NULL AND xx.dtdied IS NOT NULL AND xx.dtdied <= v.selected_date,1,0)) AS totalactive,
+        SUM(IF(xx.date_confirmed IS NOT NULL AND xx.date_cleared IS NOT NULL AND xx.date_cleared <= v.selected_date,1,0)) AS totalrecovered,
+        SUM(IF(xx.date_confirmed IS NOT NULL AND xx.dtdied IS NOT NULL AND xx.dtdied <= v.selected_date,1,0)) AS totaldeceased,
+        SUM(IF(xx.date_confirmed IS NOT NULL AND xx.date_confirmed <= v.selected_date,1,0)) AS totalconfirmed,
+        SUM(IF(xx.date_confirmed IS NOT NULL AND xx.date_confirmed <= v.selected_date AND xx.parentid IS NULL, 1, 0)) AS totalconfirmednonlocaltrans,
+        SUM(IF(xx.date_confirmed IS NOT NULL AND xx.date_confirmed <= v.selected_date AND xx.parentid IS NOT NULL, 1, 0)) AS totalconfirmedlocaltrans
+        
+        FROM 
+        calendar v,
+        bukidnoncovid19 xx
+        WHERE v.selected_date BETWEEN :startdate AND :enddate
         AND xx.address_muncity LIKE :muncity
         AND xx.address_muncity <> 'OUTSIDE BUKIDNON'
         GROUP BY v.selected_date`,
