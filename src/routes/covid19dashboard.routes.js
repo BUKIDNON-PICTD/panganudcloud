@@ -15,6 +15,10 @@ module.exports = (routes, cache) => {
     covid19dashboardcontroller.bukidnoncovid19_view_municipality_dashboard
   );
   routes.get(
+    "/bukidnoncovid19_view_province_dashboard",
+    covid19dashboardcontroller.bukidnoncovid19_view_province_dashboard
+  );
+  routes.get(
     "/bukidnoncovid19_view_by_municipality_summary",
     covid19dashboardcontroller.bukidnoncovid19_view_by_municipality_summary
   );
