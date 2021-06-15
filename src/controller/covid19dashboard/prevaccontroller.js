@@ -1,6 +1,8 @@
 var Item = require("../../models/covid19dashboard/prevac");
 const { QueryTypes } = require("sequelize");
 const db = require("../../config/tagabukidgisdb");
+const { Op } = require("sequelize");
+const moment = require("moment");
 
 exports.getAll = async (req, res) => {
   try {
@@ -44,8 +46,22 @@ exports.create = async (req, res) => {
       }
     );
     if (result.length > 0) {
- 
+
       req.body.scheddate = result[0].scheddate;
+
+
+      const registered = await Item.findOne({
+        where: {
+          lastname: req.body.lastname,
+          firstname: req.body.firstname,
+          scheddate: new Date(result[0].scheddate)
+        },
+      });
+    
+      if(registered) {
+        return res.status(500).send("Profile already registered for " + result[0].scheddate);
+      }
+
       const item = await Item.create(req.body);
       return res.status(201).json(item);
     }

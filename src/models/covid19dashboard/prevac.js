@@ -66,7 +66,16 @@ const PreVacProfile = db.define('bukidnoncovid19_prevac', {
     scheddate : {
         type: Sequelize.DATE,
         allowNull: false
+    },
+    vaccinationfacility : {
+        type: Sequelize.STRING,
+        allowNull: false
+    },
+    prioritygroup : {
+        type: Sequelize.STRING,
+        allowNull: false
     }
+
 });
 
 module.exports = PreVacProfile;
