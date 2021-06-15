@@ -65,7 +65,7 @@ exports.create = async (req, res) => {
       }
 
       const item = await Item.create(req.body);
-      const message = "This is covid19.bukidnon.gov.ph. You have successfully registered for vaccination on " + result[0].scheddate + " 8AM to 2PM only.";
+      const message = "FROM: covid19.bukidnon.gov.ph. You are registered for vaccination on " + result[0].scheddate + " 8AM to 2PM only. NAME:" + item.lastname + ", " + item.firstname + " | " + moment(item.birthdate).format('MM-DD-YYYY') + " | " + item.gender + " | " + item.prioritygroup + " | " + item.address_barangay_lguname + ", " + item.address_street;
       const mobileno = "+63"+item.mobileno.substring(1);
       if (item) {
         ssh
@@ -93,7 +93,7 @@ exports.create = async (req, res) => {
             });
         });
       }
-      // return res.status(201).json(item);
+      return res.status(201).json(item);
     }
     return res.status(500).send("No Schedule/ Slot is Available")
   } catch (error) {
