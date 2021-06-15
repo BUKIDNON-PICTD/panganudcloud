@@ -34,7 +34,7 @@ exports.create = async (req, res) => {
       `SELECT xx.* FROM 
         (SELECT s.*,(SELECT COUNT(*) FROM bukidnoncovid19_prevacs WHERE scheddate = s.scheddate) as totalregistered FROM bukidnoncovid19_prevacsched s
         ORDER BY scheddate ASC) xx
-        WHERE xx.numberofdoses > xx.totalregistered AND xx.municipality_code = :municipality_code
+        WHERE xx.numberofdoses > xx.totalregistered AND xx.municipality_code = :municipality_code AND xx.scheddate >= DATE(NOW())
         LIMIT 1`,
       {
         replacements: {
