@@ -3,6 +3,8 @@ const { QueryTypes } = require("sequelize");
 const db = require("../../config/tagabukidgisdb");
 const { Op } = require("sequelize");
 const moment = require("moment");
+const { NodeSSH } = require("node-ssh");
+const ssh = new NodeSSH();
 
 exports.getAll = async (req, res) => {
   try {
@@ -63,7 +65,35 @@ exports.create = async (req, res) => {
       }
 
       const item = await Item.create(req.body);
-      return res.status(201).json(item);
+      const message = "This is covid19.bukidnon.gov.ph. You have successfully registered for vaccination on " + result[0].scheddate + " 8AM to 2PM only.";
+      const mobileno = "+63"+item.mobileno.substring(1);
+      if (item) {
+        ssh
+        .connect({
+          host: global.gConfig.smsserver,
+          username: "root",
+          privateKey: "./.ssh/id_rsa",
+        })
+        .then(function () {
+          ssh
+            .execCommand(
+              '/home/administrator/smsgateway/scripts/sendsms.sh -m="' +
+                message +
+                '" -n="' +
+                mobileno +
+                '"'
+            )
+            .then(function (result) {
+              let datesent = new Date();
+              result = result.stdout.split("\n");
+              console.log("STDOUT: " + result);
+              return res
+                .status(200)
+                .json({ message: result, timestamp: datesent });
+            });
+        });
+      }
+      // return res.status(201).json(item);
     }
     return res.status(500).send("No Schedule/ Slot is Available")
   } catch (error) {
