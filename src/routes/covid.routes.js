@@ -2,6 +2,7 @@ var qrlogscontroller = require("../controller/qrlogscontroller");
 var covid19subscriberscontroller = require("../controller/covid19subscriberscontroller");
 
 var vaccinesurveycontroller  = require('../controller/vaccinesurveycontroller');
+var prevaccontroller  = require('../controller/covid19dashboard/prevaccontroller');
 var vaccinesurveydashboardcontroller  = require('../controller/vaccinesurveydashboardcontroller');
 
 module.exports = (routes) => {
@@ -55,4 +56,7 @@ module.exports = (routes) => {
     "/vaccinesurveydashboard/gettotals",
     vaccinesurveydashboardcontroller.getTotals
   );
+
+
+  routes.post("/prevac", prevaccontroller.create);
 };
