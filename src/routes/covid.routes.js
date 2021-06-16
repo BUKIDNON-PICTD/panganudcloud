@@ -59,4 +59,5 @@ module.exports = (routes) => {
 
 
   routes.post("/prevac", prevaccontroller.create);
+  routes.post("/prevac/notifysched", prevaccontroller.notifysched);
 };
