@@ -171,7 +171,7 @@ exports.notifysched = async (req, res) => {
       }
     );
     const title = "FROM:covid19.bukidnon.gov.ph-";
-    const message = "Your vaccination schedule is moved on " + scheddate + " at "  + schedtime + ". Please come on time.";
+    const message = "Your vaccination schedule is moved to " + scheddate + " at "  + schedtime + ". Please come on time.";
     let sms = '"' + title + message + '"';
     let ret1 = await initializesmsbatch();
     console.log(ret1);
