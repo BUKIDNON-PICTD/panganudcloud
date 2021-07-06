@@ -3,26 +3,14 @@ const db = require('../../config/tagabukidentitydb.js');
 
 
 const parcelQueryInfo = db.define('vw_parcelinfo', {
-    faasid :{
-        type: Sequelize.STRING,
-    },
     owner :{
         type: Sequelize.STRING,
-    },
-    titletype :{
-        type: Sequelize.STRING,
-    },
-    titleno :{
-        type: Sequelize.STRING,
-    },
-    titledate :{
-        type: Sequelize.DATE,
     },
     pin :{
         type: Sequelize.STRING,
     },
     landareasqm :{
-        type: Sequelize.DOUBLE,
+        type: Sequelize.DECIMAL(2),
     },
     assessedvalue :{
         type: Sequelize.DECIMAL(2),

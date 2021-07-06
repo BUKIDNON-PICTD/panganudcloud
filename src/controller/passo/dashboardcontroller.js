@@ -23,6 +23,21 @@ var passoParcelQueryController = require('../../models/passo/passo.parcel.query'
 //     }
 // }
 
+exports.getParcelList = async (req, res) => {
+    try {
+        const items = await passoParcelQueryController.findAll(req.params.owner ? {
+            where: {
+                owner: {
+                    [Op.substring]: req.params.owner
+                }
+            },
+        } : {});
+        return res.status(200).json(items);
+    } catch (error) {
+        return res.status(500).send(error.message);
+    }
+}
+
 exports.getParcelInfo = async (req, res) => {
     try {
         const items = await passoParcelQueryController.findAll(req.params.pin ? {

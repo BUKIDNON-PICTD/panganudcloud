@@ -14,5 +14,6 @@ module.exports = (routes) => {
     // routes.get('/passodashboard/section/:lguid/:barangayid', passoDashboardController.getSectionRPUTotals);
 
     routes.get('/passodashboard/parcel/:pin', passoDashboardController.getParcelInfo);
+    routes.get('/passodashboard/parcel/list/:owner', passoDashboardController.getParcelList);
     routes.get('/passodashboard/parcel/improvements/:pin', passoDashboardController.getParcelSubdivisionImprovements);
 };
