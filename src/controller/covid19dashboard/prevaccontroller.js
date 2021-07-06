@@ -63,7 +63,8 @@ exports.create = async (req, res) => {
       if(registered) {
         return res.status(500).send("Profile already registered for " + result[0].scheddate);
       }
-
+      
+      
       let schedtime = "";
       if(result[0].totalregistered <=70) {
         schedtime = "8-9am";
@@ -77,6 +78,9 @@ exports.create = async (req, res) => {
       } else {
         schedtime = " 1-2pm";
       }
+
+      //fixed sched
+      schedtime = "1pm-3:30pm";
       
       const item = await Item.create(req.body);
       const message = "FROM:covid19.bukidnon.gov.ph. SCHEDULE: " + result[0].scheddate + " " + schedtime + ". NAME:" + item.lastname + ", " + item.firstname + " | " + moment(item.birthdate).format('MM-DD-YYYY') + " | " + item.gender + " | " + item.prioritygroup + " | " + item.address_barangay_lguname + ", " + item.address_street;
