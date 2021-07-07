@@ -66,18 +66,18 @@ exports.create = async (req, res) => {
       
       
       let schedtime = "";
-      if(result[0].totalregistered <=70) {
-        schedtime = "8-9am";
-      }else if (result[0].totalregistered <= 140 ) {
-        schedtime = "9-10am";
-      }else if (result[0].totalregistered <= 210 ) {
-        schedtime = "10-11am";
-      }
-      else if (result[0].totalregistered <= 280 ) {
-        schedtime = "11-12nn";
-      } else {
-        schedtime = " 1-2pm";
-      }
+      // if(result[0].totalregistered <=70) {
+      //   schedtime = "8-9am";
+      // }else if (result[0].totalregistered <= 140 ) {
+      //   schedtime = "9-10am";
+      // }else if (result[0].totalregistered <= 210 ) {
+      //   schedtime = "10-11am";
+      // }
+      // else if (result[0].totalregistered <= 280 ) {
+      //   schedtime = "11-12nn";
+      // } else {
+      //   schedtime = " 1-2pm";
+      // }
 
       //fixed sched
       schedtime = "1pm-3:30pm";
