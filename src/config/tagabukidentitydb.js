@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 
 
-module.exports = new Sequelize('etracs254_bukidnon', global.gConfig.pgbclouddb.databaseuser, global.gConfig.pgbclouddb.databasepass, {
+module.exports = new Sequelize('etracs255_bukidnon', global.gConfig.pgbclouddb.databaseuser, global.gConfig.pgbclouddb.databasepass, {
     host: global.gConfig.pgbclouddb.databasehost,
     dialect: 'mysql',
     pool: {
