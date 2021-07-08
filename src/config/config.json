@@ -30,10 +30,10 @@
         "config_id": "production",
         "jwtSecret": "long-live-the-ionic-academy",
         "pgbclouddb": {
-            "databasehost" : "13.250.175.98",
+            "databasehost" : "58.69.56.207",
             "databasename" : "tagabukid_panganud",
             "databaseuser" : "root",
-            "databasepass" : "PGB*4dm1n!"
+            "databasepass" : "z7a18q"
         },
         "pgbcloudgisdb": {
             "databasehost" : "database-2.cih5evig8cjq.ap-southeast-1.rds.amazonaws.com",
